@@ -51,6 +51,39 @@
       mix-blend-mode: screen;
     }
 
+    /* Custom cursor */
+    @media (pointer: fine) {
+      body, a, button { cursor: none; }
+    }
+    @media (pointer: coarse) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+    .cursor-dot, .cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+      z-index: 1000;
+      transition: opacity 0.2s;
+    }
+    .cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      z-index: 1001;
+    }
+    .cursor-ring {
+      width: 34px; height: 34px;
+      border: 1.5px solid rgba(230,169,63,0.55);
+      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s;
+    }
+    .cursor-ring.is-hover {
+      width: 52px; height: 52px;
+      border-color: rgba(230,169,63,0.9);
+      background: rgba(230,169,63,0.08);
+    }
+
     /* Nav */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -307,31 +340,56 @@
         color: var(--muted);
         margin: -32px 0 32px;
       }
-    .skills-groups { display: flex; flex-direction: column; gap: 28px; }
+      .skills-groups { display: flex; flex-direction: column; gap: 32px; }
       .skill-group-label {
         font-family: var(--mono);
         font-size: 0.68rem;
         color: var(--muted);
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
-    .skill-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+      .skill-group-label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+      .skill-chips { display: flex; flex-wrap: wrap; gap: 10px; }
       .chip {
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 7px 14px;
-        border-radius: 6px;
+        display: inline-flex; align-items: center; gap: 7px;
+        padding: 8px 14px;
+        border-radius: 8px;
         background: var(--surface);
         border: 1px solid var(--border);
         font-size: 0.82rem;
         color: var(--text);
         transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
         font-family: var(--sans);
+        line-height: 1;
       }
-    .chip:hover { border-color: var(--accent); transform: translateY(-2px) rotate(0.5deg); }
-    .chip-icon { font-size: 1rem; }
-    .skill-badge { cursor: pointer; }
-    .skill-badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .chip:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px) rotate(0.5deg);
+        box-shadow: 3px 3px 0 rgba(230,169,63,0.12);
+      }
+      .chip-icon { font-size: 1.05rem; }
+      .skill-badge { cursor: pointer; }
+      .skill-badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+      .level-dots { display: inline-flex; gap: 3px; margin-left: 3px; }
+      .level-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+      .level-dots i.on { box-shadow: 0 0 6px rgba(230,169,63,0.5); }
+
+      @keyframes chip-in { from { opacity: 0; transform: translateY(10px) scale(0.95); } to { opacity: 1; transform: none; } }
+      .skills-groups .fade-in.visible .chip { animation: chip-in 0.45s cubic-bezier(0.22,1,0.36,1) both; }
+      .skills-groups .fade-in.visible .chip:nth-child(2) { animation-delay: 45ms; }
+      .skills-groups .fade-in.visible .chip:nth-child(3) { animation-delay: 90ms; }
+      .skills-groups .fade-in.visible .chip:nth-child(4) { animation-delay: 135ms; }
+      .skills-groups .fade-in.visible .chip:nth-child(5) { animation-delay: 180ms; }
 
       /* Skill popover */
       .skill-popover {
@@ -369,7 +427,17 @@
         letter-spacing: 0.08em;
         margin-bottom: 10px;
       }
-    .sp-note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+      .sp-note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+      .sp-level .sp-badge {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 1px 7px;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
 
       /* Open Source */
     .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; perspective: 1100px; }
@@ -400,8 +468,77 @@
       }
 
       /* Contact */
-    #contact { text-align: center; }
-    .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+      #contact { text-align: center; }
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(127,176,105,0.35);
+        background: rgba(127,176,105,0.08);
+        color: var(--green);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        margin-bottom: 24px;
+      }
+      .status-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(127,176,105,0.45); }
+        50% { box-shadow: 0 0 0 7px rgba(127,176,105,0); }
+      }
+      .contact-intro {
+        color: var(--muted);
+        max-width: 480px;
+        margin: 0 auto 40px;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 16px;
+        max-width: 760px;
+        margin: 0 auto;
+        perspective: 1100px;
+      }
+      .contact-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 28px 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+        transition: border-color 0.25s, box-shadow 0.25s;
+        will-change: transform;
+      }
+      .contact-card:hover {
+        border-color: rgba(230,169,63,0.4);
+        box-shadow: 3px 3px 0 rgba(230,169,63,0.15);
+        transform: translateY(-2px);
+      }
+      .cc-icon { font-size: 1.6rem; }
+      .cc-name { font-family: var(--display); font-weight: 600; }
+      .cc-handle { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+      .cc-arrow {
+        position: absolute;
+        top: 14px; right: 16px;
+        font-size: 0.85rem;
+        color: var(--muted);
+        transition: transform 0.2s, color 0.2s;
+      }
+      .contact-card:hover .cc-arrow { transform: translate(2px, -2px); color: var(--accent-g); }
 
       /* Footer */
       footer {
@@ -434,8 +571,10 @@
 </style>
     </head>
 
-    <body>
-      <div class="cursor-light" id="cursor-light"></div>
+  <body>
+    <div class="cursor-light" id="cursor-light"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
 
       <!-- Nav -->
       <nav>
@@ -595,7 +734,7 @@
         <h2 class="section-title">Skills</h2>
         <p class="skills-hint">Tip: click any skill for a quick rundown.</p>
         <div class="skills-groups">
-          <div>
+          <div class="fade-in">
             <p class="skill-group-label">Languages</p>
             <div class="skill-chips">
               <button type="button" class="chip skill-badge" data-skill="Java"><span class="chip-icon">☕</span> Java</button>
@@ -605,7 +744,7 @@
               <button type="button" class="chip skill-badge" data-skill="TypeScript"><span class="chip-icon">🔷</span> TypeScript</button>
             </div>
           </div>
-          <div>
+          <div class="fade-in">
             <p class="skill-group-label">Frameworks &amp; Tools</p>
             <div class="skill-chips">
               <button type="button" class="chip skill-badge" data-skill="Spring Boot"><span class="chip-icon">🌱</span> Spring Boot</button>
@@ -615,7 +754,7 @@
               <button type="button" class="chip skill-badge" data-skill="Express.js"><span class="chip-icon">🌿</span> Express.js</button>
             </div>
           </div>
-          <div>
+          <div class="fade-in">
             <p class="skill-group-label">Databases</p>
             <div class="skill-chips">
               <button type="button" class="chip skill-badge" data-skill="PostgreSQL"><span class="chip-icon">🐘</span> PostgreSQL</button>
@@ -625,7 +764,7 @@
               <button type="button" class="chip skill-badge" data-skill="Redis"><span class="chip-icon">🧠</span> Redis</button>
             </div>
           </div>
-          <div>
+          <div class="fade-in">
             <p class="skill-group-label">DevOps &amp; Tooling</p>
             <div class="skill-chips">
               <button type="button" class="chip skill-badge" data-skill="GitHub Actions"><span class="chip-icon">🤖</span> GitHub Actions</button>
@@ -680,16 +819,33 @@
       <section id="contact">
         <p class="section-eyebrow">Get in touch</p>
         <h2 class="section-title">Let's Connect</h2>
-        <p style="color:var(--muted);max-width:480px;margin:0 auto;font-size:1rem;line-height:1.7;">
-          I'm looking for internships and always up for a conversation about Java, DSA, or whatever
-          I happen to be building this week. If you want to collaborate or just say hi, hit me up
-          anywhere below.
-        </p>
-        <div class="contact-links">
-          <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-primary">LinkedIn</a>
-          <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub</a>
-          <a href="https://leetcode.com/rajit2004" target="_blank" class="btn btn-secondary">LeetCode</a>
-          <a href="https://github.com/sponsors/rajit2004" target="_blank" class="btn btn-secondary">Sponsor</a>
+        <div class="status-pill"><span class="status-dot"></span> Open to internships and collabs</div>
+        <p class="contact-intro">I'm always up for a conversation about Java, DSA, or whatever I happen to be building this week. Pick a channel and say hi.</p>
+        <div class="contact-grid">
+          <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="contact-card tilt fade-in">
+            <span class="cc-icon">💼</span>
+            <span class="cc-name">LinkedIn</span>
+            <span class="cc-handle">in/ranesh-kun</span>
+            <span class="cc-arrow">↗</span>
+          </a>
+          <a href="https://github.com/rajit2004" target="_blank" class="contact-card tilt fade-in">
+            <span class="cc-icon">🐙</span>
+            <span class="cc-name">GitHub</span>
+            <span class="cc-handle">@rajit2004</span>
+            <span class="cc-arrow">↗</span>
+          </a>
+          <a href="https://leetcode.com/rajit2004" target="_blank" class="contact-card tilt fade-in">
+            <span class="cc-icon">⚔️</span>
+            <span class="cc-name">LeetCode</span>
+            <span class="cc-handle">rajit2004</span>
+            <span class="cc-arrow">↗</span>
+          </a>
+          <a href="https://github.com/sponsors/rajit2004" target="_blank" class="contact-card tilt fade-in">
+            <span class="cc-icon">☕</span>
+            <span class="cc-name">Buy me a coffee</span>
+            <span class="cc-handle">GitHub Sponsors</span>
+            <span class="cc-arrow">↗</span>
+          </a>
         </div>
       </section>
 
@@ -821,6 +977,32 @@
       "Linux": { level: 70, color: "#FCC624", icon: "🐧", note: "WSL and servers. Home turf for all my tooling." },
       };
 
+      function levelLabel(level) {
+        if (level >= 85) return "Advanced";
+        if (level >= 70) return "Proficient";
+        if (level >= 50) return "Comfortable";
+        return "Still exploring";
+      }
+
+      document.querySelectorAll(".skill-badge").forEach(b => {
+        const info = skillInfo[b.dataset.skill];
+        if (!info) return;
+        const dots = document.createElement("span");
+        dots.className = "level-dots";
+        const filled = Math.round(info.level / 20);
+        for (let i = 0; i < 5; i++) {
+          const d = document.createElement("i");
+          if (i < filled) {
+            d.className = "on";
+            d.style.background = info.color;
+          }
+          dots.appendChild(d);
+        }
+        b.appendChild(dots);
+        b.addEventListener("mouseenter", () => { b.style.borderColor = info.color; });
+        b.addEventListener("mouseleave", () => { b.style.borderColor = ""; });
+      });
+
       const pop = document.getElementById("skill-popover");
       let openChip = null;
 
@@ -831,7 +1013,13 @@
         openChip = chip;
         document.getElementById("sp-icon").textContent = info.icon;
         document.getElementById("sp-name").textContent = name;
-        document.getElementById("sp-level").textContent = "Proficiency: " + info.level + "%";
+        const lvl = document.getElementById("sp-level");
+        lvl.textContent = levelLabel(info.level) + " ";
+        const badge = document.createElement("span");
+        badge.className = "sp-badge";
+        badge.textContent = info.level + "%";
+        badge.style.color = info.color;
+        lvl.appendChild(badge);
         document.getElementById("sp-note").textContent = info.note;
         const fill = document.getElementById("sp-fill");
         fill.style.width = "0%";
@@ -885,13 +1073,33 @@
       // Mouse spotlight
       const light = document.getElementById("cursor-light");
       let mx = window.innerWidth / 2, my = window.innerHeight / 2, lx = mx, ly = my;
-    window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+      window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
       (function spotlight() {
         lx += (mx - lx) * 0.08;
         ly += (my - ly) * 0.08;
         light.style.transform = "translate(" + lx + "px," + ly + "px) translate(-50%,-50%)";
         requestAnimationFrame(spotlight);
       })();
+
+      // Custom animated cursor
+      if (window.matchMedia("(pointer: fine)").matches) {
+        const dot = document.getElementById("cursor-dot");
+        const ring = document.getElementById("cursor-ring");
+        let cx = window.innerWidth / 2, cy = window.innerHeight / 2, rx = cx, ry = cy;
+        window.addEventListener("mousemove", e => { cx = e.clientX; cy = e.clientY; });
+        (function cursorLoop() {
+          rx += (cx - rx) * 0.18;
+          ry += (cy - ry) * 0.18;
+          dot.style.transform = "translate(" + cx + "px," + cy + "px) translate(-50%,-50%)";
+          ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
+          requestAnimationFrame(cursorLoop);
+        })();
+        const interactive = e => !!(e.target && e.target.closest("a, button, .tilt"));
+        document.addEventListener("mouseover", e => ring.classList.toggle("is-hover", interactive(e)));
+        document.addEventListener("mouseout", e => { if (!interactive(e)) ring.classList.remove("is-hover"); });
+        document.addEventListener("mouseleave", () => { dot.style.opacity = "0"; ring.style.opacity = "0"; });
+        document.addEventListener("mouseenter", () => { dot.style.opacity = "1"; ring.style.opacity = "1"; });
+      }
 
       // Card tilt
       if (window.matchMedia("(pointer: fine)").matches) {

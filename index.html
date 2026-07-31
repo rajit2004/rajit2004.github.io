@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ranesh Rajit — Developer</title>
+  <meta name="description" content="Java developer, DSA enthusiast, open source contributor. B.Tech CS student from India building real things in public." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Tokens ── */
+    :root {
+      --bg:       #08090D;
+      --surface:  #0F1117;
+      --surface2: #141620;
+      --border:   #1E2130;
+      --accent:   #6366F1;
+      --accent-g: #818CF8;
+      --orange:   #F97316;
+      --green:    #22C55E;
+      --text:     #F1F5F9;
+      --muted:    #64748B;
+      --subtle:   #334155;
+      --mono:     'JetBrains Mono', monospace;
+      --sans:     'Inter', sans-serif;
+      --display:  'Space Grotesk', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(8,9,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--accent-g);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+      opacity: 0.35;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 860px; }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 28px; height: 1px;
+      background: var(--accent);
+    }
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .hero-name span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-g) 50%, #A5B4FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-role {
+      font-family: var(--mono);
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--muted);
+      margin-bottom: 32px;
+      min-height: 2rem;
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1.2em;
+      background: var(--accent);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-desc strong { color: var(--text); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-g); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* ── Stats bar ── */
+    #stats {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex; gap: 0;
+      overflow-x: auto;
+    }
+    .stat-item {
+      flex: 1; min-width: 140px;
+      padding: 0 32px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child  { border-right: none; }
+    .stat-num {
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-g);
+      display: block;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Section ── */
+    section { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      color: var(--text);
+    }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--border);
+      transition: background 0.2s;
+    }
+    .project-card:hover::before { background: linear-gradient(90deg, var(--accent), var(--accent-g)); }
+    .project-card:hover {
+      border-color: rgba(99,102,241,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+    .project-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .project-name {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(99,102,241,0.1);
+      color: var(--accent-g);
+      border: 1px solid rgba(99,102,241,0.2);
+    }
+    .project-links { display: flex; gap: 12px; }
+    .project-link {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent-g); }
+    .project-featured::before { background: linear-gradient(90deg, var(--orange), #FBBF24) !important; }
+
+    /* ── Skills ── */
+    .skills-groups { display: flex; flex-direction: column; gap: 28px; }
+    .skill-group-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .chip-icon { font-size: 1rem; }
+
+    /* ── Open Source ── */
+    .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .os-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+      display: block;
+    }
+    .os-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-2px); }
+    .os-repo {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent-g);
+      margin-bottom: 6px;
+    }
+    .os-desc { font-size: 0.83rem; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+    .os-prs {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+    }
+
+    /* ── Contact ── */
+    #contact { text-align: center; }
+    .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── Fade in ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 20px 60px; }
+      #stats { padding: 20px; flex-wrap: wrap; }
+      .stat-item { min-width: 50%; border-right: none; padding: 12px; }
+      section { padding: 64px 20px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      footer { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="#">rajit2004 ~/$</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#opensource">Open Source</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Available for internships · India</p>
+      <h1 class="hero-name">Ranesh<br /><span>Rajit</span></h1>
+      <p class="hero-role" id="role-text"><span class="cursor"></span></p>
+      <p class="hero-desc">
+        <strong>B.Tech CS student</strong> building in public — Java, DSA, Spring Boot, Flutter.
+        137+ LeetCode problems solved. 14+ merged PRs across open-source projects.
+        Everything I build is free and <strong>on GitHub</strong>.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub →</a>
+        <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-secondary">LinkedIn →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <div id="stats">
+    <div class="stat-item">
+      <span class="stat-num">137+</span>
+      <span class="stat-label">Problems Solved</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">14+</span>
+      <span class="stat-label">PRs Merged</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">6</span>
+      <span class="stat-label">Projects Shipped</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">GitHub Commits</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">1490+</span>
+      <span class="stat-label">Repo Clones</span>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <section id="projects">
+    <p class="section-eyebrow">What I've built</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <a href="https://github.com/rajit2004/DeepSeekWidget" target="_blank" class="project-card project-featured fade-in">
+        <div class="project-icon">🐳</div>
+        <div class="project-name">DeepSeekWidget</div>
+        <div class="project-desc">Android home screen widget for one-tap DeepSeek access — chat, voice, camera. Featured in DeepSeek-V3 community digest. 1,490+ clones.</div>
+        <div class="project-tags">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Android</span>
+          <span class="tag">MIT</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link">📂 Repo</span>
+          <span class="project-link">📦 APK</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/rajit2004/InnerCircle" target="_blank" class="project-card fade-in">
+        <div class="project-icon">🟣</div>
+        <div class="project-name">InnerCircle</div>
+        <div class="project-desc">Multi-persona AI companion — Mom, Best Friend, Girlfriend, Big Sister. Each persona has persistent memory, real-time chat, and proactive push notifications.</div>
+        <div class="project-tags">
+          <span class="tag">Flutter</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">Groq</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link">📂 Repo</span>
+        </div>
+      </a>
+
+      <a href="https://animal-disease-predictor.streamlit.app/" target="_blank" class="project-card fade-in">
+        <div class="project-icon">🐾</div>
+        <div class="project-name">Animal Disease Predictor</div>
+        <div class="project-desc">ML web app predicting animal diseases from symptom severity using Random Forest. PDF report generation, confidence scoring, and case history tracking.</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">RandomForest</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link">📂 Repo</span>
+          <span class="project-link">🔗 Live</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/rajit2004/LeetCode-Tracker" target="_blank" class="project-card fade-in">
+        <div class="project-icon">⚡</div>
+        <div class="project-name">LeetCode Tracker</div>
+        <div class="project-desc">Personal dashboard fetching daily LeetCode stats via GraphQL API — submission bar charts, 26-week heatmap, topic bubble chart, streak tracking.</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Plotly</span>
+          <span class="tag">GraphQL</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link">📂 Repo</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/rajit2004/java_progress" target="_blank" class="project-card fade-in">
+        <div class="project-icon">☕</div>
+        <div class="project-name">Java + DSA Progress</div>
+        <div class="project-desc">Complete Java & DSA journey documented in public. 137+ LeetCode problems. Auto-updating progress table via GitHub Actions. 1,490+ clones.</div>
+        <div class="project-tags">
+          <span class="tag">Java</span>
+          <span class="tag">DSA</span>
+          <span class="tag">GitHub Actions</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link">📂 Repo</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/rajit2004/yt-analytics-tracker" target="_blank" class="project-card fade-in">
+        <div class="project-icon">📊</div>
+        <div class="project-name">YouTube Analytics Tracker</div>
+        <div class="project-desc">Tracks daily YouTube channel stats via YouTube Data API v3 — Longs vs Shorts classification, automated Excel reports and charts.</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">YouTube API</span>
+          <span class="tag">Pandas</span>
+        </div>
+        <div class="project-links">
+          <span class="project-link">📂 Repo</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <p class="section-eyebrow">What I work with</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-groups">
+      <div>
+        <p class="skill-group-label">Languages</p>
+        <div class="skill-chips">
+          <span class="chip"><span class="chip-icon">☕</span> Java</span>
+          <span class="chip"><span class="chip-icon">🐍</span> Python</span>
+          <span class="chip"><span class="chip-icon">🇰</span> Kotlin</span>
+          <span class="chip"><span class="chip-icon">⚙️</span> C++</span>
+          <span class="chip"><span class="chip-icon">🔷</span> TypeScript</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">Frameworks & Tools</p>
+        <div class="skill-chips">
+          <span class="chip">Spring Boot</span>
+          <span class="chip">Flutter</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">FastAPI</span>
+          <span class="chip">Express.js</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">Databases</p>
+        <div class="skill-chips">
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">MongoDB</span>
+          <span class="chip">Firebase</span>
+          <span class="chip">Supabase</span>
+          <span class="chip">Redis</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">DevOps & Tooling</p>
+        <div class="skill-chips">
+          <span class="chip">GitHub Actions</span>
+          <span class="chip">Git</span>
+          <span class="chip">IntelliJ IDEA</span>
+          <span class="chip">Postman</span>
+          <span class="chip">Linux</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source -->
+  <section id="opensource">
+    <p class="section-eyebrow">Community work</p>
+    <h2 class="section-title">Open Source</h2>
+    <div class="os-grid">
+      <a href="https://github.com/ishita2740/Rhythma" target="_blank" class="os-card fade-in">
+        <p class="os-repo">ishita2740/Rhythma</p>
+        <p class="os-desc">Flutter music app — implemented JWT auth, CI/CD pipeline, rate limiting, backend wiring, and Flutter integration. ECSoC26 contributor.</p>
+        <p class="os-prs">✓ 9 PRs merged</p>
+      </a>
+      <a href="https://github.com/vishnukothakapu/linkid" target="_blank" class="os-card fade-in">
+        <p class="os-repo">vishnukothakapu/linkid</p>
+        <p class="os-desc">Link-in-bio platform — database indexes, strong password validation, health endpoint, PLATFORMS constants refactor. ECSoC26 contributor.</p>
+        <p class="os-prs">✓ 4 PRs merged</p>
+      </a>
+      <a href="https://github.com/madhav2348/ss_ai" target="_blank" class="os-card fade-in">
+        <p class="os-repo">madhav2348/ss_ai</p>
+        <p class="os-desc">AI-powered screenshot tool — contributed OCR worker stub. SSoC26 contributor.</p>
+        <p class="os-prs">✓ 1 PR merged</p>
+      </a>
+      <a href="https://github.com/deepseek-ai/awesome-deepseek-integration" target="_blank" class="os-card fade-in">
+        <p class="os-repo">deepseek-ai/awesome-deepseek-integration</p>
+        <p class="os-desc">DeepSeekWidget featured in the official DeepSeek integrations list.</p>
+        <p class="os-prs">✓ Featured</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <p class="section-eyebrow">Get in touch</p>
+    <h2 class="section-title">Let's Connect</h2>
+    <p style="color:var(--muted);max-width:480px;margin:0 auto;font-size:1rem;line-height:1.7;">
+      Open to internships, collaborations, and conversations about Java, DSA, or anything you're building. Drop a message anywhere below.
+    </p>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-primary">LinkedIn</a>
+      <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub</a>
+      <a href="https://leetcode.com/rajit2004" target="_blank" class="btn btn-secondary">LeetCode</a>
+      <a href="https://github.com/sponsors/rajit2004" target="_blank" class="btn btn-secondary">Sponsor</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Built by rajit2004 · <a href="https://github.com/rajit2004/rajit2004.github.io" target="_blank">View Source</a></p>
+  </footer>
+
+  <script>
+    // ── Role typewriter ──
+    const roles = [
+      "Java Developer",
+      "DSA Enthusiast",
+      "Open Source Contributor",
+      "Builder",
+    ];
+    let ri = 0, ci = 0, deleting = false;
+    const el = document.getElementById("role-text");
+
+    function type() {
+      const role = roles[ri];
+      if (!deleting) {
+        ci++;
+        el.innerHTML = role.slice(0, ci) + '<span class="cursor"></span>';
+        if (ci === role.length) {
+          deleting = true;
+          setTimeout(type, 1800);
+          return;
+        }
+      } else {
+        ci--;
+        el.innerHTML = role.slice(0, ci) + '<span class="cursor"></span>';
+        if (ci === 0) {
+          deleting = false;
+          ri = (ri + 1) % roles.length;
+        }
+      }
+      setTimeout(type, deleting ? 40 : 75);
+    }
+    type();
+
+    // ── Scroll fade-in ──
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

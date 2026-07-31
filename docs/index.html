@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ranesh Rajit — Developer</title>
-  <meta name="description" content="Portfolio of Ranesh Rajit — B.Tech CS student, Java and DSA nerd, open source contributor." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranesh Rajit · Developer</title>
+    <meta name="description" content="Portfolio of Ranesh Rajit, a B.Tech CS student, Java and DSA nerd, and open source contributor." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <style>
-    /* ── Reset ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+<style>
+    /* Reset */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    /* ── Tokens ── */
+    /* Tokens */
     :root {
-      --bg:       #08090D;
-      --surface:  #0F1117;
+      --bg: #08090D;
+      --surface: #0F1117;
       --surface2: #141620;
-      --border:   #1E2130;
-      --accent:   #6366F1;
-      --accent-g: #818CF8;
-      --orange:   #F97316;
-      --green:    #22C55E;
-      --text:     #F1F5F9;
-      --muted:    #64748B;
-      --subtle:   #334155;
-      --mono:     'JetBrains Mono', monospace;
-      --sans:     'Inter', sans-serif;
-      --display:  'Space Grotesk', sans-serif;
+      --border: #1E2130;
+      --accent: #E6A93F;
+      --accent-g: #F0C674;
+      --orange: #E86A4A;
+      --green: #7FB069;
+      --text: #F1F5F9;
+      --muted: #64748B;
+      --subtle: #334155;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', sans-serif;
+      --display: 'Fraunces', serif;
     }
 
     body {
@@ -39,7 +39,19 @@
       overflow-x: hidden;
     }
 
-    /* ── Nav ── */
+    /* Cursor light */
+    .cursor-light {
+      position: fixed;
+      top: 0; left: 0;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,169,63,0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: screen;
+    }
+
+    /* Nav */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -55,7 +67,7 @@
       text-decoration: none;
       letter-spacing: 0.04em;
     }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
       font-size: 0.82rem;
       color: var(--muted);
@@ -63,31 +75,15 @@
       letter-spacing: 0.04em;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover { color: var(--text); }
 
-    /* ── Hero ── */
+    /* Hero */
     #hero {
       min-height: 100vh;
       display: flex; align-items: center;
       padding: 120px 48px 80px;
       position: relative;
       overflow: hidden;
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(var(--border) 1px, transparent 1px),
-                        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
-      opacity: 0.35;
-    }
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
     }
     .hero-content { position: relative; max-width: 860px; }
     .hero-eyebrow {
@@ -113,11 +109,14 @@
       color: var(--text);
       margin-bottom: 16px;
     }
-    .hero-name span {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-g) 50%, #A5B4FC 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+  .hero-name span { color: var(--accent); }
+    .hero-name::after {
+      content: '';
+      display: block;
+      width: 220px; height: 12px;
+      margin-top: 8px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' fill='none' stroke='%23E6A93F' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M2 9C30 1 60 12 90 6S115 4 118 6'/%3E%3C/svg%3E") no-repeat left top;
+      background-size: 220px 12px;
     }
     .hero-role {
       font-family: var(--mono);
@@ -134,286 +133,295 @@
       vertical-align: text-bottom;
       animation: blink 1s step-end infinite;
     }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 540px;
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
+      .hero-desc {
+        font-size: 1.05rem;
+        color: var(--muted);
+        max-width: 540px;
+        margin-bottom: 40px;
+        line-height: 1.7;
+      }
     .hero-desc strong { color: var(--text); font-weight: 500; }
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-family: var(--sans);
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
     .btn-primary:hover { background: var(--accent-g); transform: translateY(-1px); }
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
+      .btn-secondary {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
     .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-    /* ── Stats bar ── */
-    #stats {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 48px;
-      display: flex; gap: 0;
-      overflow-x: auto;
-    }
-    .stat-item {
-      flex: 1; min-width: 140px;
-      padding: 0 32px;
-      border-right: 1px solid var(--border);
-      text-align: center;
-    }
+      /* Stats bar */
+      #stats {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 28px 48px;
+        display: flex; gap: 0;
+        overflow-x: auto;
+      }
+      .stat-item {
+        flex: 1; min-width: 140px;
+        padding: 0 32px;
+        border-right: 1px solid var(--border);
+        text-align: center;
+      }
     .stat-item:first-child { padding-left: 0; }
-    .stat-item:last-child  { border-right: none; }
-    .stat-num {
-      font-family: var(--display);
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent-g);
-      display: block;
-    }
-    .stat-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .stat-note {
-      display: block;
-      font-size: 0.62rem;
-      color: var(--subtle);
-      margin-top: 2px;
-      font-family: var(--mono);
-    }
+    .stat-item:last-child { border-right: none; }
+      .stat-num {
+        font-family: var(--display);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent-g);
+        display: block;
+      }
+      .stat-label {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .stat-note {
+        display: block;
+        font-size: 0.62rem;
+        color: var(--subtle);
+        margin-top: 2px;
+        font-family: var(--mono);
+      }
 
-    /* ── Section ── */
+      /* Section */
     section { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
-    .section-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: var(--display);
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 48px;
-      color: var(--text);
-    }
+      .section-eyebrow {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        margin-bottom: 12px;
+      }
+      .section-title {
+        font-family: var(--display);
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 48px;
+        color: var(--text);
+      }
 
-    /* ── Projects ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 20px;
-    }
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
-      display: flex; flex-direction: column;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      color: inherit;
-      position: relative;
-      overflow: hidden;
-    }
-    .project-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--border);
-      transition: background 0.2s;
-    }
+      /* Projects */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 20px;
+        perspective: 1100px;
+      }
+      .project-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 28px;
+        display: flex; flex-direction: column;
+        transform-style: preserve-3d;
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
+        transition: border-color 0.25s, box-shadow 0.25s;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
+        will-change: transform;
+      }
+      .project-card::before {
+        content: '';
+        position: absolute; top: 0; left: 0; right: 0;
+        height: 2px;
+        background: var(--border);
+        transition: background 0.2s;
+      }
     .project-card:hover::before { background: linear-gradient(90deg, var(--accent), var(--accent-g)); }
-    .project-card:hover {
-      border-color: rgba(99,102,241,0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    }
+      .project-card:hover {
+        border-color: rgba(230,169,63,0.4);
+        transform: translateY(-3px);
+        box-shadow: 4px 4px 0 rgba(230,169,63,0.15), 0 0 0 1px rgba(230,169,63,0.08);
+      }
     .project-icon { font-size: 1.8rem; margin-bottom: 14px; }
-    .project-name {
-      font-family: var(--display);
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-    .project-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-      flex: 1;
-      margin-bottom: 18px;
-    }
+      .project-name {
+        font-family: var(--display);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+      .project-desc {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.6;
+        flex: 1;
+        margin-bottom: 18px;
+      }
     .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
-    .tag {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(99,102,241,0.1);
-      color: var(--accent-g);
-      border: 1px solid rgba(99,102,241,0.2);
-    }
+      .tag {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: rgba(230,169,63,0.06);
+        color: var(--accent-g);
+        border: 1px dashed rgba(230,169,63,0.35);
+        transform: rotate(-1deg);
+        transition: transform 0.15s;
+      }
+    .tag:nth-child(2n) { transform: rotate(1deg); }
+    .tag:hover { transform: rotate(0deg) scale(1.06); }
     .project-links { display: flex; gap: 12px; }
-    .project-link {
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex; align-items: center; gap: 4px;
-      transition: color 0.2s;
-    }
+      .project-link {
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-decoration: none;
+        display: flex; align-items: center; gap: 4px;
+        transition: color 0.2s;
+      }
     .project-link:hover { color: var(--accent-g); }
     .project-featured::before { background: linear-gradient(90deg, var(--orange), #FBBF24) !important; }
 
-    /* ── Skills ── */
-    .skills-hint {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin: -32px 0 32px;
-    }
+      /* Skills */
+      .skills-hint {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin: -32px 0 32px;
+      }
     .skills-groups { display: flex; flex-direction: column; gap: 28px; }
-    .skill-group-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 10px;
-    }
+      .skill-group-label {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
     .skill-chips { display: flex; flex-wrap: wrap; gap: 10px; }
-    .chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 7px 14px;
-      border-radius: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 0.82rem;
-      color: var(--text);
-      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-      font-family: var(--sans);
-    }
-    .chip:hover { border-color: var(--accent); transform: translateY(-1px); }
+      .chip {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 7px 14px;
+        border-radius: 6px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        font-size: 0.82rem;
+        color: var(--text);
+        transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+        font-family: var(--sans);
+      }
+    .chip:hover { border-color: var(--accent); transform: translateY(-2px) rotate(0.5deg); }
     .chip-icon { font-size: 1rem; }
     .skill-badge { cursor: pointer; }
     .skill-badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    /* Skill popover */
-    .skill-popover {
-      position: fixed;
-      z-index: 200;
-      width: 300px;
-      max-width: calc(100vw - 24px);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.55);
-      animation: pop-in 0.18s ease;
-    }
-    @keyframes pop-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+      /* Skill popover */
+      .skill-popover {
+        position: fixed;
+        z-index: 200;
+        width: 300px;
+        max-width: calc(100vw - 24px);
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+        animation: pop-in 0.18s ease;
+      }
+@keyframes pop-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     .sp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
     .sp-icon { font-size: 1.3rem; }
     .sp-name { font-family: var(--display); font-size: 1rem; font-weight: 600; }
-    .sp-bar {
-      height: 6px; border-radius: 3px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .sp-fill {
-      height: 100%; width: 0%;
-      border-radius: 3px;
-      transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .sp-level {
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 10px;
-    }
+      .sp-bar {
+        height: 6px; border-radius: 3px;
+        background: rgba(255,255,255,0.08);
+        overflow: hidden;
+        margin-bottom: 8px;
+      }
+      .sp-fill {
+        height: 100%; width: 0%;
+        border-radius: 3px;
+        transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .sp-level {
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+      }
     .sp-note { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
-    /* ── Open Source ── */
-    .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-    .os-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 22px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.2s;
-      display: block;
-    }
-    .os-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-2px); }
-    .os-repo {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--accent-g);
-      margin-bottom: 6px;
-    }
+      /* Open Source */
+    .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; perspective: 1100px; }
+      .os-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px 22px;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+        transition: border-color 0.25s, box-shadow 0.25s;
+        display: block;
+        will-change: transform;
+      }
+    .os-card:hover { border-color: rgba(230,169,63,0.4); transform: translateY(-2px); box-shadow: 3px 3px 0 rgba(230,169,63,0.15); }
+      .os-repo {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--accent-g);
+        margin-bottom: 6px;
+      }
     .os-desc { font-size: 0.83rem; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
-    .os-prs {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--green);
-    }
+      .os-prs {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--green);
+      }
 
-    /* ── Contact ── */
+      /* Contact */
     #contact { text-align: center; }
     .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
 
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 48px;
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 28px 48px;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
 
-    /* ── Fade in ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: none; }
+      /* Fade in */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+    .fade-in.visible { opacity: 1; }
 
-    /* ── Mobile ── */
-    @media (max-width: 768px) {
+      /* Mobile */
+      @media (max-width: 768px) {
       nav { padding: 14px 20px; }
       .nav-links { display: none; }
       #hero { padding: 100px 20px 60px; }
@@ -422,449 +430,490 @@
       section { padding: 64px 20px; }
       .projects-grid { grid-template-columns: 1fr; }
       footer { padding: 20px; }
-    }
-  </style>
-</head>
+      }
+</style>
+    </head>
 
-<body>
+    <body>
+      <div class="cursor-light" id="cursor-light"></div>
 
-  <!-- Nav -->
-  <nav>
-    <a class="nav-logo" href="#">rajit2004 ~/$</a>
-    <ul class="nav-links">
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#opensource">Open Source</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+      <!-- Nav -->
+      <nav>
+        <a class="nav-logo" href="#">rajit2004 ~/$</a>
+        <ul class="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#opensource">Open Source</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-  <!-- Hero -->
-  <section id="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">Open to internships · India</p>
-      <h1 class="hero-name">Ranesh<br /><span>Rajit</span></h1>
-      <p class="hero-role" id="role-text"><span class="cursor"></span></p>
-      <p class="hero-desc">
-        I'm a <strong>B.Tech CS student</strong> who got hooked on Java in my first semester
-        and never really stopped. I spend my free time grinding LeetCode, building Android
-        apps and web tools, and sending PRs to open-source projects I actually use. The
-        numbers below update themselves — no lies.
-      </p>
-      <div class="hero-ctas">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub →</a>
-        <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-secondary">LinkedIn →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats bar -->
-  <div id="stats">
-    <div class="stat-item">
-      <span class="stat-num" id="stat-problems">…</span>
-      <span class="stat-label">Problems Solved</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-prs">…</span>
-      <span class="stat-label">PRs Merged</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-stars">…</span>
-      <span class="stat-label">GitHub Stars</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-followers">…</span>
-      <span class="stat-label">Followers</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" id="stat-repos">…</span>
-      <span class="stat-label">Public Repos</span>
-    </div>
-  </div>
-
-  <!-- Projects -->
-  <section id="projects">
-    <p class="section-eyebrow">Stuff I've built</p>
-    <h2 class="section-title">Projects</h2>
-    <div class="projects-grid">
-
-      <a href="https://github.com/rajit2004/DeepSeekWidget" target="_blank" class="project-card project-featured fade-in">
-        <div class="project-icon">🐳</div>
-        <div class="project-name">DeepSeekWidget</div>
-        <div class="project-desc">An Android home-screen widget that puts DeepSeek one tap away — chat, voice, and camera, without ever opening the app. It made it into DeepSeek's official community digest and has been cloned 1,490+ times. Still one of the things I'm most proud of.</div>
-        <div class="project-tags">
-          <span class="tag">Kotlin</span>
-          <span class="tag">Android</span>
-          <span class="tag">MIT</span>
+      <!-- Hero -->
+      <section id="hero">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Open to internships · India</p>
+          <h1 class="hero-name">Ranesh<br /><span>Rajit</span></h1>
+          <p class="hero-role" id="role-text"><span class="cursor"></span></p>
+          <p class="hero-desc">
+            I'm a <strong>B.Tech CS student</strong> who got hooked on Java in my first semester
+            and never really stopped. I spend my free time grinding LeetCode, building Android
+            apps and web tools, and sending PRs to open-source projects I actually use. The
+            numbers below update themselves, no lies.
+          </p>
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub →</a>
+            <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-secondary">LinkedIn →</a>
+          </div>
         </div>
-        <div class="project-links">
-          <span class="project-link">📂 Repo</span>
-          <span class="project-link">📦 APK</span>
-        </div>
-      </a>
+      </section>
 
-      <a href="https://github.com/rajit2004/InnerCircle" target="_blank" class="project-card fade-in">
-        <div class="project-icon">🟣</div>
-        <div class="project-name">InnerCircle</div>
-        <div class="project-desc">An AI companion app with five personas — Mom, Best Friend, Girlfriend, Big Sister. Each one remembers your conversations, chats in real time, and nudges you on its own. Building it taught me more about push notifications than any tutorial ever did.</div>
-        <div class="project-tags">
-          <span class="tag">Flutter</span>
-          <span class="tag">Spring Boot</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Groq</span>
+      <!-- Stats bar -->
+      <div id="stats">
+        <div class="stat-item">
+          <span class="stat-num" id="stat-problems">…</span>
+          <span class="stat-label">Problems Solved</span>
         </div>
-        <div class="project-links">
-          <span class="project-link">📂 Repo</span>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-prs">…</span>
+          <span class="stat-label">PRs Merged</span>
         </div>
-      </a>
-
-      <a href="https://animal-disease-predictor.streamlit.app/" target="_blank" class="project-card fade-in">
-        <div class="project-icon">🐾</div>
-        <div class="project-name">Animal Disease Predictor</div>
-        <div class="project-desc">A web app where you enter symptom severity scores and it guesses which animal disease it might be, powered by a Random Forest model. It generates a PDF report and keeps a case history so farmers and vets can track what's been going on.</div>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Streamlit</span>
-          <span class="tag">RandomForest</span>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-stars">…</span>
+          <span class="stat-label">GitHub Stars</span>
         </div>
-        <div class="project-links">
-          <span class="project-link">📂 Repo</span>
-          <span class="project-link">🔗 Live</span>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-followers">…</span>
+          <span class="stat-label">Followers</span>
         </div>
-      </a>
-
-      <a href="https://github.com/rajit2004/LeetCode-Tracker" target="_blank" class="project-card fade-in">
-        <div class="project-icon">⚡</div>
-        <div class="project-name">LeetCode Tracker</div>
-        <div class="project-desc">My own LeetCode dashboard. It pulls daily stats through their GraphQL API and shows submission charts, a 26-week heatmap, and a topic bubble chart. I built it because I wanted to see my progress, not just guess at it.</div>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Streamlit</span>
-          <span class="tag">Plotly</span>
-          <span class="tag">GraphQL</span>
-        </div>
-        <div class="project-links">
-          <span class="project-link">📂 Repo</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/rajit2004/java_progress" target="_blank" class="project-card fade-in">
-        <div class="project-icon">☕</div>
-        <div class="project-name">Java + DSA Progress</div>
-        <div class="project-desc">Everything I've learned in Java and DSA, documented as I go — 137+ solved problems and counting. A GitHub Action updates the progress table automatically, so the README never goes stale.</div>
-        <div class="project-tags">
-          <span class="tag">Java</span>
-          <span class="tag">DSA</span>
-          <span class="tag">GitHub Actions</span>
-        </div>
-        <div class="project-links">
-          <span class="project-link">📂 Repo</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/rajit2004/yt-analytics-tracker" target="_blank" class="project-card fade-in">
-        <div class="project-icon">📊</div>
-        <div class="project-name">YouTube Analytics Tracker</div>
-        <div class="project-desc">Keeps an eye on my YouTube channel's numbers every day using the Data API, splits the stats into Longs vs Shorts, and dumps everything into an Excel report with charts. Built it because I got tired of checking the dashboard by hand.</div>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">YouTube API</span>
-          <span class="tag">Pandas</span>
-        </div>
-        <div class="project-links">
-          <span class="project-link">📂 Repo</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <p class="section-eyebrow">What I work with</p>
-    <h2 class="section-title">Skills</h2>
-    <p class="skills-hint">Tip: click any skill for a quick rundown.</p>
-    <div class="skills-groups">
-      <div>
-        <p class="skill-group-label">Languages</p>
-        <div class="skill-chips">
-          <button type="button" class="chip skill-badge" data-skill="Java"><span class="chip-icon">☕</span> Java</button>
-          <button type="button" class="chip skill-badge" data-skill="Python"><span class="chip-icon">🐍</span> Python</button>
-          <button type="button" class="chip skill-badge" data-skill="Kotlin"><span class="chip-icon">🛡️</span> Kotlin</button>
-          <button type="button" class="chip skill-badge" data-skill="C++"><span class="chip-icon">⚙️</span> C++</button>
-          <button type="button" class="chip skill-badge" data-skill="TypeScript"><span class="chip-icon">🔷</span> TypeScript</button>
+        <div class="stat-item">
+          <span class="stat-num" id="stat-repos">…</span>
+          <span class="stat-label">Public Repos</span>
         </div>
       </div>
-      <div>
-        <p class="skill-group-label">Frameworks &amp; Tools</p>
-        <div class="skill-chips">
-          <button type="button" class="chip skill-badge" data-skill="Spring Boot"><span class="chip-icon">🌱</span> Spring Boot</button>
-          <button type="button" class="chip skill-badge" data-skill="Flutter"><span class="chip-icon">🐦</span> Flutter</button>
-          <button type="button" class="chip skill-badge" data-skill="Streamlit"><span class="chip-icon">🎈</span> Streamlit</button>
-          <button type="button" class="chip skill-badge" data-skill="FastAPI"><span class="chip-icon">⚡</span> FastAPI</button>
-          <button type="button" class="chip skill-badge" data-skill="Express.js"><span class="chip-icon">🌿</span> Express.js</button>
+
+      <!-- Projects -->
+      <section id="projects">
+        <p class="section-eyebrow">Stuff I've built</p>
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+
+          <a href="https://github.com/rajit2004/DeepSeekWidget" target="_blank" class="project-card tilt project-featured fade-in">
+            <div class="project-icon">🐳</div>
+            <div class="project-name">DeepSeekWidget</div>
+            <div class="project-desc">An Android home-screen widget that puts DeepSeek one tap away for chat, voice, and camera, without ever opening the app. It made it into DeepSeek's official community digest and has been cloned 1,490+ times. Still one of the things I'm most proud of.</div>
+            <div class="project-tags">
+              <span class="tag">Kotlin</span>
+              <span class="tag">Android</span>
+              <span class="tag">MIT</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link">📂 Repo</span>
+              <span class="project-link">📦 APK</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/rajit2004/InnerCircle" target="_blank" class="project-card tilt fade-in">
+            <div class="project-icon">🟣</div>
+            <div class="project-name">InnerCircle</div>
+            <div class="project-desc">An AI companion app with five personas: Mom, Best Friend, Girlfriend, Big Sister. Each one remembers your conversations, chats in real time, and nudges you on its own. Building it taught me more about push notifications than any tutorial ever did.</div>
+            <div class="project-tags">
+              <span class="tag">Flutter</span>
+              <span class="tag">Spring Boot</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">Groq</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link">📂 Repo</span>
+            </div>
+          </a>
+
+          <a href="https://animal-disease-predictor.streamlit.app/" target="_blank" class="project-card tilt fade-in">
+            <div class="project-icon">🐾</div>
+            <div class="project-name">Animal Disease Predictor</div>
+            <div class="project-desc">A web app where you enter symptom severity scores and it guesses which animal disease it might be, powered by a Random Forest model. It generates a PDF report and keeps a case history so farmers and vets can track what's been going on.</div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">RandomForest</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link">📂 Repo</span>
+              <span class="project-link">🔗 Live</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/rajit2004/LeetCode-Tracker" target="_blank" class="project-card tilt fade-in">
+            <div class="project-icon">⚡</div>
+            <div class="project-name">LeetCode Tracker</div>
+            <div class="project-desc">My own LeetCode dashboard. It pulls daily stats through their GraphQL API and shows submission charts, a 26-week heatmap, and a topic bubble chart. I built it because I wanted to see my progress, not just guess at it.</div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">Plotly</span>
+              <span class="tag">GraphQL</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link">📂 Repo</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/rajit2004/java_progress" target="_blank" class="project-card tilt fade-in">
+            <div class="project-icon">☕</div>
+            <div class="project-name">Java + DSA Progress</div>
+            <div class="project-desc">Everything I've learned in Java and DSA, documented as I go. 137+ solved problems and counting. A GitHub Action updates the progress table automatically, so the README never goes stale.</div>
+            <div class="project-tags">
+              <span class="tag">Java</span>
+              <span class="tag">DSA</span>
+              <span class="tag">GitHub Actions</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link">📂 Repo</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/rajit2004/yt-analytics-tracker" target="_blank" class="project-card tilt fade-in">
+            <div class="project-icon">📊</div>
+            <div class="project-name">YouTube Analytics Tracker</div>
+            <div class="project-desc">Keeps an eye on my YouTube channel's numbers every day using the Data API, splits the stats into Longs vs Shorts, and dumps everything into an Excel report with charts. Built it because I got tired of checking the dashboard by hand.</div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">YouTube API</span>
+              <span class="tag">Pandas</span>
+            </div>
+            <div class="project-links">
+              <span class="project-link">📂 Repo</span>
+            </div>
+          </a>
+
         </div>
-      </div>
-      <div>
-        <p class="skill-group-label">Databases</p>
-        <div class="skill-chips">
-          <button type="button" class="chip skill-badge" data-skill="PostgreSQL"><span class="chip-icon">🐘</span> PostgreSQL</button>
-          <button type="button" class="chip skill-badge" data-skill="MongoDB"><span class="chip-icon">🍃</span> MongoDB</button>
-          <button type="button" class="chip skill-badge" data-skill="Firebase"><span class="chip-icon">🔥</span> Firebase</button>
-          <button type="button" class="chip skill-badge" data-skill="Supabase"><span class="chip-icon">🚀</span> Supabase</button>
-          <button type="button" class="chip skill-badge" data-skill="Redis"><span class="chip-icon">🧠</span> Redis</button>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills">
+        <p class="section-eyebrow">What I work with</p>
+        <h2 class="section-title">Skills</h2>
+        <p class="skills-hint">Tip: click any skill for a quick rundown.</p>
+        <div class="skills-groups">
+          <div>
+            <p class="skill-group-label">Languages</p>
+            <div class="skill-chips">
+              <button type="button" class="chip skill-badge" data-skill="Java"><span class="chip-icon">☕</span> Java</button>
+              <button type="button" class="chip skill-badge" data-skill="Python"><span class="chip-icon">🐍</span> Python</button>
+              <button type="button" class="chip skill-badge" data-skill="Kotlin"><span class="chip-icon">🛡️</span> Kotlin</button>
+              <button type="button" class="chip skill-badge" data-skill="C++"><span class="chip-icon">⚙️</span> C++</button>
+              <button type="button" class="chip skill-badge" data-skill="TypeScript"><span class="chip-icon">🔷</span> TypeScript</button>
+            </div>
+          </div>
+          <div>
+            <p class="skill-group-label">Frameworks &amp; Tools</p>
+            <div class="skill-chips">
+              <button type="button" class="chip skill-badge" data-skill="Spring Boot"><span class="chip-icon">🌱</span> Spring Boot</button>
+              <button type="button" class="chip skill-badge" data-skill="Flutter"><span class="chip-icon">🐦</span> Flutter</button>
+              <button type="button" class="chip skill-badge" data-skill="Streamlit"><span class="chip-icon">🎈</span> Streamlit</button>
+              <button type="button" class="chip skill-badge" data-skill="FastAPI"><span class="chip-icon">⚡</span> FastAPI</button>
+              <button type="button" class="chip skill-badge" data-skill="Express.js"><span class="chip-icon">🌿</span> Express.js</button>
+            </div>
+          </div>
+          <div>
+            <p class="skill-group-label">Databases</p>
+            <div class="skill-chips">
+              <button type="button" class="chip skill-badge" data-skill="PostgreSQL"><span class="chip-icon">🐘</span> PostgreSQL</button>
+              <button type="button" class="chip skill-badge" data-skill="MongoDB"><span class="chip-icon">🍃</span> MongoDB</button>
+              <button type="button" class="chip skill-badge" data-skill="Firebase"><span class="chip-icon">🔥</span> Firebase</button>
+              <button type="button" class="chip skill-badge" data-skill="Supabase"><span class="chip-icon">🚀</span> Supabase</button>
+              <button type="button" class="chip skill-badge" data-skill="Redis"><span class="chip-icon">🧠</span> Redis</button>
+            </div>
+          </div>
+          <div>
+            <p class="skill-group-label">DevOps &amp; Tooling</p>
+            <div class="skill-chips">
+              <button type="button" class="chip skill-badge" data-skill="GitHub Actions"><span class="chip-icon">🤖</span> GitHub Actions</button>
+              <button type="button" class="chip skill-badge" data-skill="Git"><span class="chip-icon">🔀</span> Git</button>
+              <button type="button" class="chip skill-badge" data-skill="IntelliJ IDEA"><span class="chip-icon">💡</span> IntelliJ IDEA</button>
+              <button type="button" class="chip skill-badge" data-skill="Postman"><span class="chip-icon">📮</span> Postman</button>
+              <button type="button" class="chip skill-badge" data-skill="Linux"><span class="chip-icon">🐧</span> Linux</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        <p class="skill-group-label">DevOps &amp; Tooling</p>
-        <div class="skill-chips">
-          <button type="button" class="chip skill-badge" data-skill="GitHub Actions"><span class="chip-icon">🤖</span> GitHub Actions</button>
-          <button type="button" class="chip skill-badge" data-skill="Git"><span class="chip-icon">🔀</span> Git</button>
-          <button type="button" class="chip skill-badge" data-skill="IntelliJ IDEA"><span class="chip-icon">💡</span> IntelliJ IDEA</button>
-          <button type="button" class="chip skill-badge" data-skill="Postman"><span class="chip-icon">📮</span> Postman</button>
-          <button type="button" class="chip skill-badge" data-skill="Linux"><span class="chip-icon">🐧</span> Linux</button>
+
+        <div class="skill-popover" id="skill-popover" hidden>
+          <div class="sp-head">
+            <span class="sp-icon" id="sp-icon"></span>
+            <span class="sp-name" id="sp-name"></span>
+          </div>
+          <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
+          <div class="sp-level" id="sp-level"></div>
+          <p class="sp-note" id="sp-note"></p>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <div class="skill-popover" id="skill-popover" hidden>
-      <div class="sp-head">
-        <span class="sp-icon" id="sp-icon"></span>
-        <span class="sp-name" id="sp-name"></span>
-      </div>
-      <div class="sp-bar"><div class="sp-fill" id="sp-fill"></div></div>
-      <div class="sp-level" id="sp-level"></div>
-      <p class="sp-note" id="sp-note"></p>
-    </div>
-  </section>
+      <!-- Open Source -->
+      <section id="opensource">
+        <p class="section-eyebrow">Community work</p>
+        <h2 class="section-title">Open Source</h2>
+        <div class="os-grid">
+          <a href="https://github.com/ishita2740/Rhythma" target="_blank" class="os-card tilt fade-in">
+            <p class="os-repo">ishita2740/Rhythma</p>
+            <p class="os-desc">Flutter music app by ishita2740. I added JWT auth, set up the CI/CD pipeline, did rate limiting and backend wiring, plus the Flutter side. Contributed during ECSoC26.</p>
+            <p class="os-prs" id="pr-rhythma">✓ …</p>
+          </a>
+          <a href="https://github.com/vishnukothakapu/linkid" target="_blank" class="os-card tilt fade-in">
+            <p class="os-repo">vishnukothakapu/linkid</p>
+            <p class="os-desc">Link-in-bio platform by vishnukothakapu. Worked on database indexes, stronger password validation, a health endpoint, and refactored the PLATFORMS constants. ECSoC26.</p>
+            <p class="os-prs" id="pr-linkid">✓ …</p>
+          </a>
+          <a href="https://github.com/madhav2348/ss_ai" target="_blank" class="os-card tilt fade-in">
+            <p class="os-repo">madhav2348/ss_ai</p>
+            <p class="os-desc">AI screenshot tool by madhav2348. I wrote the OCR worker stub. SSoC26.</p>
+            <p class="os-prs" id="pr-ssai">✓ …</p>
+          </a>
+          <a href="https://github.com/deepseek-ai/awesome-deepseek-integration" target="_blank" class="os-card tilt fade-in">
+            <p class="os-repo">deepseek-ai/awesome-deepseek-integration</p>
+            <p class="os-desc">DeepSeekWidget made it into the official DeepSeek integrations list. That still feels unreal.</p>
+            <p class="os-prs">✓ Featured</p>
+          </a>
+        </div>
+      </section>
 
-  <!-- Open Source -->
-  <section id="opensource">
-    <p class="section-eyebrow">Community work</p>
-    <h2 class="section-title">Open Source</h2>
-    <div class="os-grid">
-      <a href="https://github.com/ishita2740/Rhythma" target="_blank" class="os-card fade-in">
-        <p class="os-repo">ishita2740/Rhythma</p>
-        <p class="os-desc">Flutter music app by ishita2740. I added JWT auth, set up the CI/CD pipeline, did rate limiting and backend wiring, plus the Flutter side. Contributed during ECSoC26 — 9 PRs merged.</p>
-        <p class="os-prs">✓ 9 PRs merged</p>
-      </a>
-      <a href="https://github.com/vishnukothakapu/linkid" target="_blank" class="os-card fade-in">
-        <p class="os-repo">vishnukothakapu/linkid</p>
-        <p class="os-desc">Link-in-bio platform by vishnukothakapu. Worked on database indexes, stronger password validation, a health endpoint, and refactored the PLATFORMS constants. ECSoC26 — 4 PRs merged.</p>
-        <p class="os-prs">✓ 4 PRs merged</p>
-      </a>
-      <a href="https://github.com/madhav2348/ss_ai" target="_blank" class="os-card fade-in">
-        <p class="os-repo">madhav2348/ss_ai</p>
-        <p class="os-desc">AI screenshot tool by madhav2348. I wrote the OCR worker stub. SSoC26 — 1 PR merged.</p>
-        <p class="os-prs">✓ 1 PR merged</p>
-      </a>
-      <a href="https://github.com/deepseek-ai/awesome-deepseek-integration" target="_blank" class="os-card fade-in">
-        <p class="os-repo">deepseek-ai/awesome-deepseek-integration</p>
-        <p class="os-desc">DeepSeekWidget made it into the official DeepSeek integrations list. That still feels unreal.</p>
-        <p class="os-prs">✓ Featured</p>
-      </a>
-    </div>
-  </section>
+      <!-- Contact -->
+      <section id="contact">
+        <p class="section-eyebrow">Get in touch</p>
+        <h2 class="section-title">Let's Connect</h2>
+        <p style="color:var(--muted);max-width:480px;margin:0 auto;font-size:1rem;line-height:1.7;">
+          I'm looking for internships and always up for a conversation about Java, DSA, or whatever
+          I happen to be building this week. If you want to collaborate or just say hi, hit me up
+          anywhere below.
+        </p>
+        <div class="contact-links">
+          <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-primary">LinkedIn</a>
+          <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub</a>
+          <a href="https://leetcode.com/rajit2004" target="_blank" class="btn btn-secondary">LeetCode</a>
+          <a href="https://github.com/sponsors/rajit2004" target="_blank" class="btn btn-secondary">Sponsor</a>
+        </div>
+      </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <p class="section-eyebrow">Get in touch</p>
-    <h2 class="section-title">Let's Connect</h2>
-    <p style="color:var(--muted);max-width:480px;margin:0 auto;font-size:1rem;line-height:1.7;">
-      I'm looking for internships and always up for a conversation about Java, DSA, or whatever
-      I happen to be building this week. If you want to collaborate or just say hi, hit me up
-      anywhere below.
-    </p>
-    <div class="contact-links">
-      <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="btn btn-primary">LinkedIn</a>
-      <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub</a>
-      <a href="https://leetcode.com/rajit2004" target="_blank" class="btn btn-secondary">LeetCode</a>
-      <a href="https://github.com/sponsors/rajit2004" target="_blank" class="btn btn-secondary">Sponsor</a>
-    </div>
-  </section>
+      <!-- Footer -->
+      <footer>
+        <p>Built by rajit2004 · <a href="https://github.com/rajit2004/rajit2004.github.io" target="_blank">View Source</a></p>
+      </footer>
 
-  <!-- Footer -->
-  <footer>
-    <p>Built by rajit2004 · <a href="https://github.com/rajit2004/rajit2004.github.io" target="_blank">View Source</a></p>
-  </footer>
-
-  <script>
-    // ── Role typewriter ──
-    const roles = [
+<script>
+      // Role typewriter
+      const roles = [
       "Java Developer",
       "DSA Enthusiast",
       "Open Source Contributor",
       "Android & Flutter Builder",
-    ];
-    let ri = 0, ci = 0, deleting = false;
-    const el = document.getElementById("role-text");
+      ];
+      let ri = 0, ci = 0, deleting = false;
+      const el = document.getElementById("role-text");
 
-    function type() {
-      const role = roles[ri];
-      if (!deleting) {
-        ci++;
-        el.innerHTML = role.slice(0, ci) + '<span class="cursor"></span>';
-        if (ci === role.length) {
-          deleting = true;
-          setTimeout(type, 1800);
-          return;
+      function type() {
+        const role = roles[ri];
+        if (!deleting) {
+          ci++;
+          el.innerHTML = role.slice(0, ci) + '<span class="cursor"></span>';
+          if (ci === role.length) {
+            deleting = true;
+            setTimeout(type, 1800);
+            return;
+          }
+        } else {
+          ci--;
+          el.innerHTML = role.slice(0, ci) + '<span class="cursor"></span>';
+          if (ci === 0) {
+            deleting = false;
+            ri = (ri + 1) % roles.length;
+          }
         }
-      } else {
-        ci--;
-        el.innerHTML = role.slice(0, ci) + '<span class="cursor"></span>';
-        if (ci === 0) {
-          deleting = false;
-          ri = (ri + 1) % roles.length;
-        }
+        setTimeout(type, deleting ? 40 : 75);
       }
-      setTimeout(type, deleting ? 40 : 75);
-    }
-    type();
+      type();
 
-    // ── Real-time stats ──
-    const GITHUB = "https://api.github.com";
-    const LC_URL = "https://alfa-leetcode-api.onrender.com/rajit2004/solved";
+      // Real-time stats
+      const GITHUB = "https://api.github.com";
+      const LC_URL = "https://alfa-leetcode-api.onrender.com/rajit2004/solved";
 
-    const STATS = [
-      { el: "stat-problems", url: LC_URL, pick: d => d.solvedProblem, def: 234, cache: "lc-solved" },
-      { el: "stat-prs", url: GITHUB + "/search/issues?q=author:rajit2004+type:pr+is:merged&per_page=1", pick: d => d.total_count, def: 41, cache: "gh-prs" },
-      { el: "stat-stars", url: GITHUB + "/users/rajit2004/repos?per_page=100&sort=updated", pick: d => d.reduce((s, r) => s + (r.stargazers_count || 0), 0), def: 7, cache: "gh-stars" },
-      { el: "stat-followers", url: GITHUB + "/users/rajit2004", pick: d => d.followers, def: 16, cache: "gh-followers" },
-      { el: "stat-repos", url: GITHUB + "/users/rajit2004", pick: d => d.public_repos, def: 21, cache: "gh-repos" },
-    ];
+      const STATS = [
+    { el: "stat-problems", url: LC_URL, pick: d => d.solvedProblem, def: 234, cache: "lc-solved" },
+    { el: "stat-prs", url: GITHUB + "/search/issues?q=author:rajit2004+type:pr+is:merged&per_page=1", pick: d => d.total_count, def: 41, cache: "gh-prs" },
+    { el: "stat-stars", url: GITHUB + "/users/rajit2004/repos?per_page=100&sort=updated", pick: d => d.reduce((s, r) => s + (r.stargazers_count || 0), 0), def: 7, cache: "gh-stars" },
+    { el: "stat-followers", url: GITHUB + "/users/rajit2004", pick: d => d.followers, def: 16, cache: "gh-followers" },
+    { el: "stat-repos", url: GITHUB + "/users/rajit2004", pick: d => d.public_repos, def: 21, cache: "gh-repos" },
+      ];
 
-    const CACHE_TTL = 30 * 60 * 1000;
+      const CACHE_TTL = 30 * 60 * 1000;
 
-    function cached(key) {
-      try {
-        const raw = localStorage.getItem(key);
-        if (!raw) return null;
-        const { t, v } = JSON.parse(raw);
-        if (Date.now() - t > CACHE_TTL) return null;
-        return v;
-      } catch { return null; }
-    }
-
-    function setCache(key, v) {
-      try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch {}
-    }
-
-    async function fetchJson(url) {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 10000);
-      try {
-        const res = await fetch(url, { signal: ctrl.signal });
-        if (!res.ok) throw new Error("bad status");
-        return await res.json();
-      } finally { clearTimeout(timer); }
-    }
-
-    function animateNumber(node, end) {
-      const start = performance.now();
-      const dur = 900;
-      (function step(now) {
-        const p = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        node.textContent = Math.round(end * eased).toLocaleString("en-US");
-        if (p < 1) requestAnimationFrame(step);
-      })(performance.now());
-    }
-
-    async function refreshStats() {
-      for (const s of STATS) {
-        const node = document.getElementById(s.el);
-        const c = cached(s.cache);
-        if (c != null) animateNumber(node, c);
+      function cached(key) {
         try {
-          const data = await fetchJson(s.url);
-          const v = Number(s.pick(data)) || 0;
-          setCache(s.cache, v);
-          animateNumber(node, v);
-        } catch {
-          if (c == null) node.textContent = s.def;
+          const raw = localStorage.getItem(key);
+          if (!raw) return null;
+        const { t, v } = JSON.parse(raw);
+          if (Date.now() - t > CACHE_TTL) return null;
+          return v;
+      } catch { return null; }
+      }
+
+      function setCache(key, v) {
+  try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch {}
+      }
+
+      async function fetchJson(url) {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 10000);
+        try {
+        const res = await fetch(url, { signal: ctrl.signal });
+          if (!res.ok) throw new Error("bad status");
+          return await res.json();
+      } finally { clearTimeout(timer); }
+      }
+
+      function animateNumber(node, end) {
+        const start = performance.now();
+        const dur = 900;
+        (function step(now) {
+          const p = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          node.textContent = Math.round(end * eased).toLocaleString("en-US");
+          if (p < 1) requestAnimationFrame(step);
+        })(performance.now());
+      }
+
+      async function refreshStats() {
+        for (const s of STATS) {
+          const node = document.getElementById(s.el);
+          const c = cached(s.cache);
+          if (c != null) animateNumber(node, c);
+          try {
+            const data = await fetchJson(s.url);
+            const v = Number(s.pick(data)) || 0;
+            setCache(s.cache, v);
+            animateNumber(node, v);
+          } catch {
+            if (c == null) node.textContent = s.def;
+          }
         }
       }
-    }
-    refreshStats();
+      refreshStats();
 
-    // ── Interactive skill badges ──
-    const skillInfo = {
-      "Java":          { level: 90, color: "#f89820", icon: "☕", note: "Daily driver since my first semester — most of my projects and all my DSA practice are in it." },
-      "Python":        { level: 80, color: "#4B8BBE", icon: "🐍", note: "Go-to for quick scripts, ML experiments, and automation that saves me time." },
-      "Kotlin":        { level: 75, color: "#7F52FF", icon: "🛡️", note: "Learned it specifically to build native Android apps like DeepSeekWidget." },
-      "C++":           { level: 65, color: "#00599C", icon: "⚙️", note: "For competitive programming and learning how memory actually works." },
-      "TypeScript":    { level: 70, color: "#3178C6", icon: "🔷", note: "Backend and tooling — makes JavaScript genuinely pleasant to write." },
-      "Spring Boot":   { level: 80, color: "#6DB33F", icon: "🌱", note: "The first backend framework I reach for; it powers InnerCircle's API." },
-      "Flutter":       { level: 75, color: "#02569B", icon: "🐦", note: "Cross-platform apps in Dart — built InnerCircle with it." },
-      "Streamlit":     { level: 80, color: "#FF4B4B", icon: "🎈", note: "Fastest way I know to ship a data app to the web — two of my projects run on it." },
-      "FastAPI":       { level: 70, color: "#009688", icon: "⚡", note: "Clean Python APIs with auto-generated docs. Feels like cheating." },
-      "Express.js":    { level: 65, color: "#68A063", icon: "🌿", note: "Lightweight Node backend for the simpler projects." },
-      "PostgreSQL":    { level: 75, color: "#336791", icon: "🐘", note: "My default relational database — used it in most of my apps." },
-      "MongoDB":       { level: 65, color: "#47A248", icon: "🍃", note: "Flexible schemas when the data won't sit still." },
-      "Firebase":      { level: 70, color: "#FFCA28", icon: "🔥", note: "Auth, Firestore, and push notifications when I need to ship fast." },
-      "Supabase":      { level: 70, color: "#3ECF8E", icon: "🚀", note: "Postgres plus auth and realtime, without the Firebase lock-in." },
-      "Redis":         { level: 55, color: "#DC382D", icon: "🧠", note: "Caching and rate limiting — I know the basics, still digging deeper." },
+      // Interactive skill badges
+      const skillInfo = {
+      "Java": { level: 90, color: "#f89820", icon: "☕", note: "Daily driver since my first semester. Most of my projects and all my DSA practice are in it." },
+      "Python": { level: 80, color: "#4B8BBE", icon: "🐍", note: "Go-to for quick scripts, ML experiments, and automation that saves me time." },
+      "Kotlin": { level: 75, color: "#7F52FF", icon: "🛡️", note: "Learned it specifically to build native Android apps like DeepSeekWidget." },
+      "C++": { level: 65, color: "#00599C", icon: "⚙️", note: "For competitive programming and learning how memory actually works." },
+      "TypeScript": { level: 70, color: "#3178C6", icon: "🔷", note: "Backend and tooling. Makes JavaScript genuinely pleasant to write." },
+      "Spring Boot": { level: 80, color: "#6DB33F", icon: "🌱", note: "The first backend framework I reach for; it powers InnerCircle's API." },
+      "Flutter": { level: 75, color: "#02569B", icon: "🐦", note: "Cross-platform apps in Dart. Built InnerCircle with it." },
+      "Streamlit": { level: 80, color: "#FF4B4B", icon: "🎈", note: "Fastest way I know to ship a data app to the web. Two of my projects run on it." },
+      "FastAPI": { level: 70, color: "#009688", icon: "⚡", note: "Clean Python APIs with auto-generated docs. Feels like cheating." },
+      "Express.js": { level: 65, color: "#68A063", icon: "🌿", note: "Lightweight Node backend for the simpler projects." },
+      "PostgreSQL": { level: 75, color: "#336791", icon: "🐘", note: "My default relational database. Used it in most of my apps." },
+      "MongoDB": { level: 65, color: "#47A248", icon: "🍃", note: "Flexible schemas when the data won't sit still." },
+      "Firebase": { level: 70, color: "#FFCA28", icon: "🔥", note: "Auth, Firestore, and push notifications when I need to ship fast." },
+      "Supabase": { level: 70, color: "#3ECF8E", icon: "🚀", note: "Postgres plus auth and realtime, without the Firebase lock-in." },
+      "Redis": { level: 55, color: "#DC382D", icon: "🧠", note: "Caching and rate limiting. I know the basics, still digging deeper." },
       "GitHub Actions":{ level: 80, color: "#2088FF", icon: "🤖", note: "Automates my builds, cron jobs, and the auto-updating READMEs." },
-      "Git":           { level: 85, color: "#F05032", icon: "🔀", note: "Branch, rebase, blame — the daily ritual. It's muscle memory now." },
+      "Git": { level: 85, color: "#F05032", icon: "🔀", note: "Branch, rebase, blame. The daily ritual, and it's basically muscle memory now." },
       "IntelliJ IDEA": { level: 80, color: "#FE2857", icon: "💡", note: "Where all my Java work happens. Tweak the theme, never leave." },
-      "Postman":       { level: 75, color: "#FF6C37", icon: "📮", note: "Testing APIs before the frontend even exists." },
-      "Linux":         { level: 70, color: "#FCC624", icon: "🐧", note: "WSL and servers — home turf for all my tooling." },
-    };
+      "Postman": { level: 75, color: "#FF6C37", icon: "📮", note: "Testing APIs before the frontend even exists." },
+      "Linux": { level: 70, color: "#FCC624", icon: "🐧", note: "WSL and servers. Home turf for all my tooling." },
+      };
 
-    const pop = document.getElementById("skill-popover");
-    let openChip = null;
+      const pop = document.getElementById("skill-popover");
+      let openChip = null;
 
-    function openSkill(name, chip) {
-      const info = skillInfo[name];
-      if (!info) return;
+      function openSkill(name, chip) {
+        const info = skillInfo[name];
+        if (!info) return;
       if (openChip === chip) { closeSkill(); return; }
-      openChip = chip;
-      document.getElementById("sp-icon").textContent = info.icon;
-      document.getElementById("sp-name").textContent = name;
-      document.getElementById("sp-level").textContent = "Proficiency — " + info.level + "%";
-      document.getElementById("sp-note").textContent = info.note;
-      const fill = document.getElementById("sp-fill");
-      fill.style.width = "0%";
-      fill.style.background = info.color;
-      pop.style.borderColor = info.color;
-      pop.hidden = false;
+        openChip = chip;
+        document.getElementById("sp-icon").textContent = info.icon;
+        document.getElementById("sp-name").textContent = name;
+        document.getElementById("sp-level").textContent = "Proficiency: " + info.level + "%";
+        document.getElementById("sp-note").textContent = info.note;
+        const fill = document.getElementById("sp-fill");
+        fill.style.width = "0%";
+        fill.style.background = info.color;
+        pop.style.borderColor = info.color;
+        pop.hidden = false;
       requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = info.level + "%"; }));
 
-      const r = chip.getBoundingClientRect();
-      const pWidth = pop.offsetWidth;
-      const pHeight = pop.offsetHeight;
-      let left = r.left + r.width / 2 - pWidth / 2;
-      left = Math.max(8, Math.min(left, window.innerWidth - pWidth - 8));
-      let top = r.bottom + 10;
-      if (top + pHeight > window.innerHeight - 8) top = r.top - pHeight - 10;
-      pop.style.left = left + "px";
-      pop.style.top = top + "px";
-    }
+        const r = chip.getBoundingClientRect();
+        const pWidth = pop.offsetWidth;
+        const pHeight = pop.offsetHeight;
+        let left = r.left + r.width / 2 - pWidth / 2;
+        left = Math.max(8, Math.min(left, window.innerWidth - pWidth - 8));
+        let top = r.bottom + 10;
+        if (top + pHeight > window.innerHeight - 8) top = r.top - pHeight - 10;
+        pop.style.left = left + "px";
+        pop.style.top = top + "px";
+      }
 
-    function closeSkill() {
-      pop.hidden = true;
-      openChip = null;
-    }
+      function closeSkill() {
+        pop.hidden = true;
+        openChip = null;
+      }
 
-    document.querySelectorAll(".skill-badge").forEach(b => {
-      b.addEventListener("click", () => openSkill(b.dataset.skill, b));
-    });
-    document.addEventListener("click", e => {
-      if (openChip && !openChip.contains(e.target)) closeSkill();
-    });
+      document.querySelectorAll(".skill-badge").forEach(b => {
+        b.addEventListener("click", () => openSkill(b.dataset.skill, b));
+      });
+      document.addEventListener("click", e => {
+        if (openChip && !openChip.contains(e.target)) closeSkill();
+      });
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeSkill(); });
     window.addEventListener("scroll", closeSkill, { passive: true });
 
-    // ── Scroll fade-in ──
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
-  </script>
+      // Real-time community PR counts
+      const PRS = [
+    { el: "pr-rhythma", repo: "ishita2740/Rhythma" },
+    { el: "pr-linkid", repo: "vishnukothakapu/linkid" },
+    { el: "pr-ssai", repo: "madhav2348/ss_ai" },
+      ];
+      PRS.forEach(p => {
+        const node = document.getElementById(p.el);
+        const key = "pr-" + p.repo.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const set = n => { node.textContent = n === 1 ? "✓ 1 PR merged" : "✓ " + n + " PRs merged"; };
+        const c = cached(key);
+        if (c != null) set(c);
+        fetchJson(GITHUB + "/search/issues?q=" + encodeURIComponent("author:rajit2004 type:pr is:merged repo:" + p.repo) + "&per_page=1")
+      .then(d => { const v = Number(d.total_count) || 0; setCache(key, v); set(v); })
+      .catch(() => { if (c == null) node.textContent = "✓ merged PRs"; });
+      });
 
-</body>
-</html>
+      // Mouse spotlight
+      const light = document.getElementById("cursor-light");
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2, lx = mx, ly = my;
+    window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+      (function spotlight() {
+        lx += (mx - lx) * 0.08;
+        ly += (my - ly) * 0.08;
+        light.style.transform = "translate(" + lx + "px," + ly + "px) translate(-50%,-50%)";
+        requestAnimationFrame(spotlight);
+      })();
+
+      // Card tilt
+      if (window.matchMedia("(pointer: fine)").matches) {
+        document.querySelectorAll(".tilt").forEach(card => {
+          card.addEventListener("mousemove", e => {
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = "rotateX(" + (-py * 4).toFixed(2) + "deg) rotateY(" + (px * 4).toFixed(2) + "deg) translateY(-2px)";
+          });
+        card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+        });
+      }
+
+      // Scroll fade-in
+      const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
+    { threshold: 0.1 }
+      );
+      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+</script>
+
+    </body>
+  </html>
+

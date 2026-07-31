@@ -1,0 +1,15 @@
+# JetBrains IDEs
+.idea/
+*.iml
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jekyll build output (GitHub Pages builds in CI)
+docs/_site/
+docs/.jekyll-cache/

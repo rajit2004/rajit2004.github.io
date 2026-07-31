@@ -31,24 +31,47 @@
       --display: 'Fraunces', serif;
     }
 
+    html { background: var(--bg); }
     body {
-      background: var(--bg);
+      background: transparent;
       color: var(--text);
       font-family: var(--sans);
       line-height: 1.6;
       overflow-x: hidden;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(38% 45% at 18% 22%, rgba(230,169,63,0.08), transparent 70%),
+        radial-gradient(42% 45% at 82% 30%, rgba(124,110,255,0.07), transparent 70%),
+        radial-gradient(50% 50% at 60% 85%, rgba(224,140,90,0.05), transparent 70%);
+      animation: aurora 22s ease-in-out infinite alternate;
+    }
+    @keyframes aurora {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(-1.5%, 1%, 0) scale(1.08); }
+    }
 
     /* Cursor light */
-    .cursor-light {
+    .cursor-light, .cursor-light-2 {
       position: fixed;
       top: 0; left: 0;
-      width: 480px; height: 480px;
+      width: 640px; height: 640px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(230,169,63,0.06) 0%, transparent 65%);
       pointer-events: none;
       z-index: 0;
       mix-blend-mode: screen;
+      will-change: transform;
+    }
+    .cursor-light {
+      background: radial-gradient(circle, rgba(230,169,63,0.10) 0%, transparent 55%);
+    }
+    .cursor-light-2 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(124,110,255,0.09) 0%, transparent 55%);
     }
 
     /* Custom cursor */
@@ -75,14 +98,25 @@
     }
     .cursor-ring {
       width: 34px; height: 34px;
-      border: 1.5px solid rgba(230,169,63,0.55);
-      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s;
+      transition: width 0.2s ease, height 0.2s ease, opacity 0.2s;
     }
+    .cursor-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(230,169,63,0.9), rgba(124,110,255,0.9), rgba(230,169,63,0.9));
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 1px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 1px));
+      animation: ring-spin 4s linear infinite;
+      transition: opacity 0.2s;
+    }
+    .cursor-ring:not(.is-hover)::before { opacity: 0.55; }
     .cursor-ring.is-hover {
-      width: 52px; height: 52px;
-      border-color: rgba(230,169,63,0.9);
-      background: rgba(230,169,63,0.08);
+      width: 54px; height: 54px;
     }
+    .cursor-ring.is-hover::before { opacity: 1; }
+    @keyframes ring-spin { to { transform: rotate(360deg); } }
 
     /* Nav */
     nav {
@@ -573,6 +607,7 @@
 
   <body>
     <div class="cursor-light" id="cursor-light"></div>
+    <div class="cursor-light-2" id="cursor-light-2"></div>
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
@@ -1071,13 +1106,18 @@
       });
 
       // Mouse spotlight
-      const light = document.getElementById("cursor-light");
-      let mx = window.innerWidth / 2, my = window.innerHeight / 2, lx = mx, ly = my;
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      const glows = [
+        { el: document.getElementById("cursor-light"), x: mx, y: my, speed: 0.10 },
+        { el: document.getElementById("cursor-light-2"), x: mx, y: my, speed: 0.05 },
+      ];
       window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
       (function spotlight() {
-        lx += (mx - lx) * 0.08;
-        ly += (my - ly) * 0.08;
-        light.style.transform = "translate(" + lx + "px," + ly + "px) translate(-50%,-50%)";
+        for (const g of glows) {
+          g.x += (mx - g.x) * g.speed;
+          g.y += (my - g.y) * g.speed;
+          g.el.style.transform = "translate(" + g.x + "px," + g.y + "px) translate(-50%,-50%)";
+        }
         requestAnimationFrame(spotlight);
       })();
 

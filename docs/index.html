@@ -668,6 +668,7 @@
       #hero.play .hero-name { animation-delay: 0.2s; }
       #hero.play .hero-role { animation-delay: 0.36s; }
       #hero.play .hero-desc { animation-delay: 0.5s; }
+      #hero.play .hero-facts { animation-delay: 0.56s; }
       #hero.play .hero-ctas { animation-delay: 0.64s; }
 
       /* Name shimmer */
@@ -757,12 +758,12 @@
       }
 
       /* Card glow following cursor */
-      .project-card::after, .os-card::after, .contact-card::after {
+      .project-card::after, .os-card::after, .contact-card::after, .ach-card::after {
         content: ''; position: absolute; inset: 0; border-radius: inherit;
         background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(230,169,63,0.10), transparent 42%);
         opacity: 0; transition: opacity 0.3s; pointer-events: none;
       }
-      .project-card:hover::after, .os-card:hover::after, .contact-card:hover::after { opacity: 1; }
+      .project-card:hover::after, .os-card:hover::after, .contact-card:hover::after, .ach-card:hover::after { opacity: 1; }
 
       /* Back to top */
       #back-top {
@@ -801,6 +802,88 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
 
+      /* Nav CTA */
+      .nav-cta {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 0.78rem; font-weight: 500;
+        color: var(--accent); text-decoration: none;
+        border: 1px solid rgba(230,169,63,0.4); border-radius: 999px;
+        padding: 7px 16px;
+        transition: all 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--accent); color: #fff;
+        box-shadow: 0 0 18px rgba(230,169,63,0.35);
+      }
+
+      /* Hamburger (mobile) */
+      .nav-toggle {
+        display: none;
+        background: none; border: none; cursor: pointer;
+        width: 42px; height: 42px; padding: 10px;
+      }
+      .nav-toggle span {
+        display: block; width: 22px; height: 2px; margin: 5px auto;
+        background: var(--text); border-radius: 2px;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav-toggle.open span:nth-child(2) { opacity: 0; }
+      .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      /* At-a-glance pills */
+      .hero-facts {
+        display: flex; flex-wrap: wrap; gap: 10px;
+        margin-bottom: 32px;
+      }
+      .hero-fact {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-family: var(--mono); font-size: 0.72rem;
+        color: var(--muted);
+        padding: 8px 14px;
+        border: 1px solid var(--border); border-radius: 999px;
+        background: rgba(15,17,23,0.6);
+      }
+      .hero-fact b { color: var(--accent-g); font-weight: 600; }
+
+      /* Achievements */
+      .ach-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        perspective: 1100px;
+      }
+      .ach-card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border); border-radius: 10px;
+        padding: 24px;
+        box-shadow: 3px 3px 0 rgba(0,0,0,0.35);
+        transition: border-color 0.25s, box-shadow 0.25s;
+        will-change: transform;
+        overflow: hidden;
+      }
+      .ach-card:hover { border-color: rgba(230,169,63,0.4); box-shadow: 3px 3px 0 rgba(230,169,63,0.15); }
+      .ach-icon { font-size: 1.5rem; margin-bottom: 12px; }
+      .ach-label {
+        font-family: var(--mono); font-size: 0.64rem; color: var(--accent);
+        text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;
+      }
+      .ach-num {
+        font-family: var(--display); font-size: 1.6rem; font-weight: 700;
+        color: var(--accent-g); display: block; margin-bottom: 8px;
+        line-height: 1.15;
+      }
+      .ach-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+      /* Project stars */
+      .project-stars {
+        margin-left: auto;
+        font-family: var(--mono); font-size: 0.72rem;
+        color: var(--accent-g);
+        display: inline-flex; align-items: center; gap: 4px;
+      }
+
       /* Reduced motion */
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -811,7 +894,21 @@
       /* Mobile */
       @media (max-width: 768px) {
       nav { padding: 14px 20px; }
-      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-cta { display: none; }
+      .nav-links {
+        display: flex; flex-direction: column; gap: 4px;
+        position: fixed; top: 69px; left: 0; right: 0;
+        padding: 16px 20px;
+        background: rgba(8,9,13,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-12px); opacity: 0; pointer-events: none;
+        transition: opacity 0.25s, transform 0.25s;
+      }
+      .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
+      .nav-links a { display: block; padding: 12px 4px; font-size: 0.95rem; }
+      .nav-links a.active::after { display: none; }
       #hero { padding: 100px 20px 60px; }
       #stats { padding: 20px; flex-wrap: wrap; }
       .stat-item { min-width: 50%; border-right: none; padding: 12px; }
@@ -841,12 +938,17 @@
       <!-- Nav -->
       <nav>
         <a class="nav-logo" href="#">rajit2004 ~/$</a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
           <li><a href="#projects">Projects</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#opensource">Open Source</a></li>
+          <li><a href="#achievements">Achievements</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+        <a href="#contact" class="nav-cta">Hire Me</a>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </nav>
 
       <!-- Hero -->
@@ -863,6 +965,11 @@
             apps and web tools, and sending PRs to open-source projects I actually use. The
             numbers below update themselves, no lies.
           </p>
+          <div class="hero-facts hero-anim">
+            <span class="hero-fact"><b>B.Tech</b> Computer Science</span>
+            <span class="hero-fact"><b>India</b> · open to remote &amp; onsite</span>
+            <span class="hero-fact"><b>Java</b> · Android · Open Source</span>
+          </div>
           <div class="hero-ctas hero-anim">
             <a href="#projects" class="btn btn-primary">View Projects</a>
             <a href="https://github.com/rajit2004" target="_blank" class="btn btn-secondary">GitHub →</a>
@@ -925,6 +1032,7 @@
             <div class="project-links">
               <span class="project-link">📂 Repo</span>
               <span class="project-link">📦 APK</span>
+              <span class="project-stars" data-repo="rajit2004/DeepSeekWidget" hidden>★</span>
             </div>
           </a>
 
@@ -940,6 +1048,7 @@
             </div>
             <div class="project-links">
               <span class="project-link">📂 Repo</span>
+              <span class="project-stars" data-repo="rajit2004/InnerCircle" hidden>★</span>
             </div>
           </a>
 
@@ -970,6 +1079,7 @@
             </div>
             <div class="project-links">
               <span class="project-link">📂 Repo</span>
+              <span class="project-stars" data-repo="rajit2004/LeetCode-Tracker" hidden>★</span>
             </div>
           </a>
 
@@ -984,6 +1094,7 @@
             </div>
             <div class="project-links">
               <span class="project-link">📂 Repo</span>
+              <span class="project-stars" data-repo="rajit2004/java_progress" hidden>★</span>
             </div>
           </a>
 
@@ -998,6 +1109,7 @@
             </div>
             <div class="project-links">
               <span class="project-link">📂 Repo</span>
+              <span class="project-stars" data-repo="rajit2004/yt-analytics-tracker" hidden>★</span>
             </div>
           </a>
 
@@ -1091,10 +1203,42 @@
         </div>
       </section>
 
+      <!-- Achievements -->
+      <section id="achievements">
+        <p class="section-eyebrow">The receipts</p>
+        <h2 class="section-title fade-in"><span class="section-no">04 /</span><span class="title-text">Achievements</span></h2>
+        <div class="ach-grid">
+          <div class="ach-card tilt fade-in">
+            <div class="ach-icon">🌟</div>
+            <p class="ach-label">Recognition</p>
+            <span class="ach-num">DeepSeek featured</span>
+            <p class="ach-desc">DeepSeekWidget was showcased in DeepSeek's official community digest.</p>
+          </div>
+          <div class="ach-card tilt fade-in">
+            <div class="ach-icon">⬇️</div>
+            <p class="ach-label">Reach</p>
+            <span class="ach-num">1,490+ clones</span>
+            <p class="ach-desc">DeepSeekWidget has been cloned more than 1,490 times since launch.</p>
+          </div>
+          <div class="ach-card tilt fade-in">
+            <div class="ach-icon">🏆</div>
+            <p class="ach-label">Open source programs</p>
+            <span class="ach-num">ECSoC26 · SSoC26</span>
+            <p class="ach-desc">Merged PRs in Flutter, Python, and backend repos during both programs.</p>
+          </div>
+          <div class="ach-card tilt fade-in">
+            <div class="ach-icon">⚔️</div>
+            <p class="ach-label">Daily grind</p>
+            <span class="ach-num">DSA, every day</span>
+            <p class="ach-desc">Solving problems in Java almost daily, with progress tracked automatically.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- Contact -->
       <section id="contact">
         <p class="section-eyebrow">Get in touch</p>
-        <h2 class="section-title fade-in"><span class="section-no">04 /</span><span class="title-text">Let's Connect</span></h2>
+        <h2 class="section-title fade-in"><span class="section-no">05 /</span><span class="title-text">Let's Connect</span></h2>
         <div class="status-pill"><span class="status-dot"></span> Open to internships and collabs</div>
         <p class="contact-intro">I'm always up for a conversation about Java, DSA, or whatever I happen to be building this week. Pick a channel and say hi.</p>
         <div class="contact-grid">
@@ -1441,7 +1585,7 @@
           if (link) link.classList.add("active");
         });
       }, { rootMargin: "-45% 0px -50% 0px" });
-      ["projects", "skills", "opensource", "contact"].forEach(id => {
+      ["projects", "skills", "opensource", "achievements", "contact"].forEach(id => {
         const s = document.getElementById(id);
         if (s) spyObserver.observe(s);
       });
@@ -1452,6 +1596,39 @@
         backTop.classList.toggle("show", window.scrollY > 700);
       }, { passive: true });
       backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      // ── Mobile nav toggle ─────────────────────────────────────────────
+      const navToggle = document.getElementById("nav-toggle");
+      const navLinksEl = document.getElementById("nav-links");
+      navToggle.addEventListener("click", () => {
+        const open = navLinksEl.classList.toggle("open");
+        navToggle.classList.toggle("open", open);
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      navLinksEl.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          navLinksEl.classList.remove("open");
+          navToggle.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      // ── Live repo stars on project cards ─────────────────────────────
+      document.querySelectorAll(".project-stars").forEach(star => {
+        const repo = star.dataset.repo;
+        if (!repo) return;
+        const key = "stars-" + repo.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        const c = cached(key);
+        if (c != null) { star.textContent = "★ " + c.toLocaleString("en-US"); star.hidden = false; }
+        fetchJson(GITHUB + "/repos/" + repo)
+          .then(d => {
+            const v = Number(d.stargazers_count) || 0;
+            setCache(key, v);
+            star.textContent = "★ " + v.toLocaleString("en-US");
+            star.hidden = false;
+          })
+          .catch(() => { if (c == null) star.hidden = true; });
+      });
 
       // ── Magnetic buttons ──────────────────────────────────────────────
       if (window.matchMedia("(pointer: fine)").matches) {

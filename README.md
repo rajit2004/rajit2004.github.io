@@ -8,13 +8,14 @@ A single-page portfolio for **Ranesh Rajit**, a B.Tech CS student focused on Jav
 
 ## Features
 
-- **Hero** with typewriter roles, staggered entrance animation, and orbit rings
+- **Hero** with typewriter roles, staggered entrance animation, orbit rings, and at-a-glance facts
 - **Real-time stats** pulled live from the GitHub API and LeetCode, with a 30-minute cache and offline fallbacks
-- **Projects grid** with 3D tilt, cursor-follow glow, and hover states
+- **Projects grid** with 3D tilt, cursor-follow glow, hover states, and **live GitHub star counts** per repo
 - **Interactive skills** that pop open a proficiency popover with level bars when clicked
 - **Open source section** showing live merged-PR counts per repo
-- **Contact cards** and an availability status pill
-- **Polish**: preloader, scrolling tech marquee, scroll progress bar, scrollspy nav, magnetic buttons, custom animated cursor, aurora background, film grain, and back-to-top button
+- **Achievements section** highlighting recognition, reach, and open source programs
+- **Contact section** with an availability status pill and a prominent "Open to work" CTA
+- **Polish**: preloader, scrolling tech marquee, scroll progress bar, scrollspy nav, magnetic buttons, custom animated cursor, aurora background, film grain, back-to-top button, and a responsive hamburger menu on mobile
 - Respects `prefers-reduced-motion`
 
 ## Getting Started
@@ -44,7 +45,7 @@ GitHub Pages is configured to publish from the `/docs` folder on `main`. Pushing
 
 ## Live Stats
 
-The stats bar (problems solved, PRs merged, stars, followers, repos) updates itself from:
+The stats bar (problems solved, PRs merged, stars, followers, repos) and the star counts on project cards update themselves from:
 
 - [LeetCode GraphQL API](https://leetcode.com/rajit2004/) via a community proxy
 - GitHub REST API (`api.github.com`)

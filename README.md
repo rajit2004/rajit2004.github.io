@@ -8,7 +8,9 @@ A single-page portfolio for **Ranesh Rajit**, a B.Tech CS student focused on Jav
 
 ## Features
 
-- **Hero** with typewriter roles, staggered entrance animation, orbit rings, and at-a-glance facts
+- **Hero** with a live `LOGS:LIVE` status badge, typewriter roles, staggered entrance animation, orbit rings, and at-a-glance facts. On the right, a single **system-console panel** merges a DSA progress gauge (problems/yr ring), a live ticking IST clock, a compact "currently" feed (building/learning/grinding/open-to that auto-rotates, with click-to-focus), a real GitHub contribution heatmap (12 weeks, cached with a fallback pattern), and a rotating mission-log line. The name auto-scales to fill the hero width on desktop, measured with the canvas API (no layout reflow)
+- **System-console accents** throughout: `$` shell-command section eyebrows (`$ ls ./works`, `$ git log --merged`), `//` section numbers, and PID-styled skill groups
+- **Click effects**: amber ink-ripples on chips, cards, and buttons; the system-monitor panel emits an "ACK" pulse ring; the Currently cards are clickable to focus that card; heatmap cells scale up with a date/count tooltip on hover
 - **Real-time stats** pulled live from the GitHub API and LeetCode, with a 30-minute cache and offline fallbacks
 - **Projects grid** with 3D tilt, cursor-follow glow, hover states, and **live GitHub star counts** per repo
 - **Interactive skills** that pop open a proficiency popover with level bars when clicked

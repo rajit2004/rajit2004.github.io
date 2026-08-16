@@ -599,6 +599,37 @@
       }
     .fade-in.visible { opacity: 1; }
 
+      /* Directional scroll reveals (use `translate` so they never clash with tilt transforms) */
+      .fade-up, .fade-left, .fade-right, .fade-zoom {
+        opacity: 0;
+        transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), translate 0.7s cubic-bezier(0.22,1,0.36,1), scale 0.7s cubic-bezier(0.22,1,0.36,1);
+        transition-delay: var(--rd, 0s);
+        will-change: opacity, translate;
+      }
+      .fade-up { translate: 0 34px; }
+      .fade-left { translate: -40px 0; }
+      .fade-right { translate: 40px 0; }
+      .fade-zoom { translate: 0 0; scale: 0.92; }
+      .fade-up.visible, .fade-left.visible, .fade-right.visible { opacity: 1; translate: 0 0; }
+      .fade-zoom.visible { opacity: 1; scale: 1; }
+      .projects-grid > *, .os-grid > *, .ach-grid > *, .contact-grid > * { --rd: 0s; }
+      .projects-grid > *:nth-child(2), .os-grid > *:nth-child(2), .ach-grid > *:nth-child(2), .contact-grid > *:nth-child(2) { --rd: 70ms; }
+      .projects-grid > *:nth-child(3), .os-grid > *:nth-child(3), .ach-grid > *:nth-child(3), .contact-grid > *:nth-child(3) { --rd: 140ms; }
+      .projects-grid > *:nth-child(4), .os-grid > *:nth-child(4), .ach-grid > *:nth-child(4), .contact-grid > *:nth-child(4) { --rd: 210ms; }
+      .projects-grid > *:nth-child(5), .os-grid > *:nth-child(5), .ach-grid > *:nth-child(5) { --rd: 280ms; }
+      .projects-grid > *:nth-child(6), .os-grid > *:nth-child(6) { --rd: 350ms; }
+
+      /* Shimmer sweep across section titles once revealed */
+      .section-title .title-text { position: relative; }
+      .fade-in.visible .title-text::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(110deg, transparent 25%, rgba(230,169,63,0.55) 50%, transparent 75%);
+        background-size: 260% 100%;
+        animation: shimmer-sweep 1.1s ease 0.55s 1;
+        pointer-events: none;
+      }
+      @keyframes shimmer-sweep { from { background-position: 200% 0; } to { background-position: -60% 0; } }
+
       /* ── UX Upgrades ─────────────────────────────────────────────── */
 
       /* Scroll progress */
@@ -1056,12 +1087,50 @@
         display: inline-flex; align-items: center; gap: 4px;
       }
 
+      /* Floating data-particles in hero */
+      .pd {
+        position: absolute; border-radius: 50%; pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        box-shadow: 0 0 8px var(--pd-c, rgba(230,169,63,0.5));
+        animation: pd-float var(--pd-dur, 12s) linear infinite;
+      }
+      @keyframes pd-float {
+        0% { transform: translate3d(0, 0, 0); opacity: 0; }
+        12% { opacity: 1; }
+        88% { opacity: 1; }
+        100% { transform: translate3d(var(--pd-x, 40px), -150px, 0); opacity: 0; }
+      }
+      .hero-content, .hero-side { z-index: 2; }
+
+      /* Marquee edge fade */
+      .marquee {
+        -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+        mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+      }
+
+      /* Back-to-top scroll progress ring */
+      #back-top {
+        border: none;
+        background: conic-gradient(var(--accent) var(--p, 0%), rgba(255,255,255,0.07) 0);
+      }
+      #back-top::after {
+        content: ''; position: absolute; inset: 3px; border-radius: 9px;
+        background: var(--surface2);
+      }
+      #back-top span { position: relative; z-index: 1; }
+
+      /* 3D tilt cards */
+      .tilt { transition: transform 0.15s ease-out, border-color 0.25s, box-shadow 0.25s; }
+
       /* Reduced motion */
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         .hero-anim { opacity: 1; transform: none; }
         .scroll-cue { opacity: 1; }
         .hero-sys { opacity: 1; }
+        .fade-in, .fade-up, .fade-left, .fade-right, .fade-zoom { opacity: 1; translate: none; scale: 1; }
+        .pd { display: none; }
       }
 
       /* Mobile */
@@ -1241,7 +1310,7 @@
         <h2 class="section-title fade-in"><span class="section-no">01 //</span><span class="title-text">Projects</span></h2>
         <div class="projects-grid">
 
-          <a href="https://github.com/rajit2004/DeepSeekWidget" target="_blank" class="project-card tilt project-featured fade-in">
+          <a href="https://github.com/rajit2004/DeepSeekWidget" target="_blank" class="project-card tilt project-featured fade-zoom">
             <div class="project-icon">🐳</div>
             <div class="project-name">DeepSeekWidget</div>
             <div class="project-desc">An Android home-screen widget that puts DeepSeek one tap away for chat, voice, and camera, without ever opening the app. It made it into DeepSeek's official community digest and has been cloned 1,490+ times. Still one of the things I'm most proud of.</div>
@@ -1257,7 +1326,7 @@
             </div>
           </a>
 
-          <a href="https://github.com/rajit2004/InnerCircle" target="_blank" class="project-card tilt fade-in">
+          <a href="https://github.com/rajit2004/InnerCircle" target="_blank" class="project-card tilt fade-up">
             <div class="project-icon">🟣</div>
             <div class="project-name">InnerCircle</div>
             <div class="project-desc">An AI companion app with five personas: Mom, Best Friend, Girlfriend, Big Sister. Each one remembers your conversations, chats in real time, and nudges you on its own. Building it taught me more about push notifications than any tutorial ever did.</div>
@@ -1273,7 +1342,7 @@
             </div>
           </a>
 
-          <a href="https://animal-disease-predictor.streamlit.app/" target="_blank" class="project-card tilt fade-in">
+          <a href="https://animal-disease-predictor.streamlit.app/" target="_blank" class="project-card tilt fade-up">
             <div class="project-icon">🐾</div>
             <div class="project-name">Animal Disease Predictor</div>
             <div class="project-desc">A web app where you enter symptom severity scores and it guesses which animal disease it might be, powered by a Random Forest model. It generates a PDF report and keeps a case history so farmers and vets can track what's been going on.</div>
@@ -1288,7 +1357,7 @@
             </div>
           </a>
 
-          <a href="https://github.com/rajit2004/LeetCode-Tracker" target="_blank" class="project-card tilt fade-in">
+          <a href="https://github.com/rajit2004/LeetCode-Tracker" target="_blank" class="project-card tilt fade-up">
             <div class="project-icon">⚡</div>
             <div class="project-name">LeetCode Tracker</div>
             <div class="project-desc">My own LeetCode dashboard. It pulls daily stats through their GraphQL API and shows submission charts, a 26-week heatmap, and a topic bubble chart. I built it because I wanted to see my progress, not just guess at it.</div>
@@ -1304,7 +1373,7 @@
             </div>
           </a>
 
-          <a href="https://github.com/rajit2004/java_progress" target="_blank" class="project-card tilt fade-in">
+          <a href="https://github.com/rajit2004/java_progress" target="_blank" class="project-card tilt fade-up">
             <div class="project-icon">☕</div>
             <div class="project-name">Java + DSA Progress</div>
             <div class="project-desc">Everything I've learned in Java and DSA, documented as I go. 137+ solved problems and counting. A GitHub Action updates the progress table automatically, so the README never goes stale.</div>
@@ -1319,7 +1388,7 @@
             </div>
           </a>
 
-          <a href="https://github.com/rajit2004/yt-analytics-tracker" target="_blank" class="project-card tilt fade-in">
+          <a href="https://github.com/rajit2004/yt-analytics-tracker" target="_blank" class="project-card tilt fade-up">
             <div class="project-icon">📊</div>
             <div class="project-name">YouTube Analytics Tracker</div>
             <div class="project-desc">Keeps an eye on my YouTube channel's numbers every day using the Data API, splits the stats into Longs vs Shorts, and dumps everything into an Excel report with charts. Built it because I got tired of checking the dashboard by hand.</div>
@@ -1401,22 +1470,22 @@
         <p class="section-eyebrow"><span class="se-prompt">$</span> git log --merged</p>
         <h2 class="section-title fade-in"><span class="section-no">03 //</span><span class="title-text">Open Source</span></h2>
         <div class="os-grid">
-          <a href="https://github.com/ishita2740/Rhythma" target="_blank" class="os-card tilt fade-in">
+          <a href="https://github.com/ishita2740/Rhythma" target="_blank" class="os-card tilt fade-up">
             <p class="os-repo">ishita2740/Rhythma</p>
             <p class="os-desc">Flutter music app by ishita2740. I added JWT auth, set up the CI/CD pipeline, did rate limiting and backend wiring, plus the Flutter side. Contributed during ECSoC26.</p>
             <p class="os-prs" id="pr-rhythma">✓ …</p>
           </a>
-          <a href="https://github.com/vishnukothakapu/linkid" target="_blank" class="os-card tilt fade-in">
+          <a href="https://github.com/vishnukothakapu/linkid" target="_blank" class="os-card tilt fade-up">
             <p class="os-repo">vishnukothakapu/linkid</p>
             <p class="os-desc">Link-in-bio platform by vishnukothakapu. Worked on database indexes, stronger password validation, a health endpoint, and refactored the PLATFORMS constants. ECSoC26.</p>
             <p class="os-prs" id="pr-linkid">✓ …</p>
           </a>
-          <a href="https://github.com/madhav2348/ss_ai" target="_blank" class="os-card tilt fade-in">
+          <a href="https://github.com/madhav2348/ss_ai" target="_blank" class="os-card tilt fade-up">
             <p class="os-repo">madhav2348/ss_ai</p>
             <p class="os-desc">AI screenshot tool by madhav2348. I wrote the OCR worker stub. SSoC26.</p>
             <p class="os-prs" id="pr-ssai">✓ …</p>
           </a>
-          <a href="https://github.com/deepseek-ai/awesome-deepseek-integration" target="_blank" class="os-card tilt fade-in">
+          <a href="https://github.com/deepseek-ai/awesome-deepseek-integration" target="_blank" class="os-card tilt fade-up">
             <p class="os-repo">deepseek-ai/awesome-deepseek-integration</p>
             <p class="os-desc">DeepSeekWidget made it into the official DeepSeek integrations list. That still feels unreal.</p>
             <p class="os-prs">✓ Featured</p>
@@ -1429,25 +1498,25 @@
         <p class="section-eyebrow"><span class="se-prompt">$</span> cat ./receipts</p>
         <h2 class="section-title fade-in"><span class="section-no">04 //</span><span class="title-text">Achievements</span></h2>
         <div class="ach-grid">
-          <div class="ach-card tilt fade-in">
+          <div class="ach-card tilt fade-up">
             <div class="ach-icon">🌟</div>
             <p class="ach-label">Recognition</p>
             <span class="ach-num">DeepSeek featured</span>
             <p class="ach-desc">DeepSeekWidget was showcased in DeepSeek's official community digest.</p>
           </div>
-          <div class="ach-card tilt fade-in">
+          <div class="ach-card tilt fade-up">
             <div class="ach-icon">⬇️</div>
             <p class="ach-label">Reach</p>
             <span class="ach-num">1,490+ clones</span>
             <p class="ach-desc">DeepSeekWidget has been cloned more than 1,490 times since launch.</p>
           </div>
-          <div class="ach-card tilt fade-in">
+          <div class="ach-card tilt fade-up">
             <div class="ach-icon">🏆</div>
             <p class="ach-label">Open source programs</p>
             <span class="ach-num">ECSoC26 · SSoC26</span>
             <p class="ach-desc">Merged PRs in Flutter, Python, and backend repos during both programs.</p>
           </div>
-          <div class="ach-card tilt fade-in">
+          <div class="ach-card tilt fade-up">
             <div class="ach-icon">⚔️</div>
             <p class="ach-label">Daily grind</p>
             <span class="ach-num">DSA, every day</span>
@@ -1463,39 +1532,39 @@
         <div class="status-pill"><span class="status-dot"></span> Open to internships and collabs</div>
         <p class="contact-intro">I'm always up for a conversation about Java, DSA, or whatever I happen to be building this week. Pick a channel and say hi.</p>
         <div class="contact-grid">
-          <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="contact-card tilt fade-in">
+          <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="contact-card tilt fade-up">
             <span class="cc-icon">💼</span>
             <span class="cc-name">LinkedIn</span>
             <span class="cc-handle">in/ranesh-kun</span>
             <span class="cc-arrow">↗</span>
           </a>
-          <a href="https://github.com/rajit2004" target="_blank" class="contact-card tilt fade-in">
+          <a href="https://github.com/rajit2004" target="_blank" class="contact-card tilt fade-up">
             <span class="cc-icon">🐙</span>
             <span class="cc-name">GitHub</span>
             <span class="cc-handle">@rajit2004</span>
             <span class="cc-arrow">↗</span>
           </a>
-          <a href="https://leetcode.com/rajit2004" target="_blank" class="contact-card tilt fade-in">
+          <a href="https://leetcode.com/rajit2004" target="_blank" class="contact-card tilt fade-up">
             <span class="cc-icon">⚔️</span>
             <span class="cc-name">LeetCode</span>
             <span class="cc-handle">rajit2004</span>
             <span class="cc-arrow">↗</span>
           </a>
-            <a href="https://github.com/sponsors/rajit2004" target="_blank" class="contact-card tilt fade-in">
+            <a href="https://github.com/sponsors/rajit2004" target="_blank" class="contact-card tilt fade-up">
             <span class="cc-icon">☕</span>
             <span class="cc-name">Buy me a coffee</span>
             <span class="cc-handle">GitHub Sponsors</span>
             <span class="cc-arrow">↗</span>
           </a>
         </div>
-        <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="contact-cta fade-in">
+        <a href="https://linkedin.com/in/ranesh-kun" target="_blank" class="contact-cta fade-zoom">
           <span>Open to work. Say hi on LinkedIn</span>
           <span class="cta-arrow">→</span>
         </a>
       </section>
 
       <!-- Footer -->
-      <button id="back-top" type="button" aria-label="Back to top">↑</button>
+      <button id="back-top" type="button" aria-label="Back to top"><span>↑</span></button>
       <footer>
         <p>Built by rajit2004 · <a href="https://github.com/rajit2004/rajit2004.github.io" target="_blank">View Source</a></p>
       </footer>
@@ -1752,7 +1821,7 @@
         document.addEventListener("mouseenter", () => { dot.style.opacity = "1"; ring.style.opacity = "1"; });
       }
 
-      // Card tilt
+      // Card tilt (3D) + glare
       if (window.matchMedia("(pointer: fine)").matches) {
         document.querySelectorAll(".tilt").forEach(card => {
           card.addEventListener("mousemove", e => {
@@ -1761,18 +1830,22 @@
             const py = (e.clientY - r.top) / r.height - 0.5;
             card.style.setProperty("--mx", (e.clientX - r.left) + "px");
             card.style.setProperty("--my", (e.clientY - r.top) + "px");
-            card.style.transform = "rotateX(" + (-py * 4).toFixed(2) + "deg) rotateY(" + (px * 4).toFixed(2) + "deg) translateY(-2px)";
+            card.style.transform = "rotateX(" + (-py * 9).toFixed(2) + "deg) rotateY(" + (px * 9).toFixed(2) + "deg) translateY(-7px) scale(1.02)";
           });
-        card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+            card.style.setProperty("--mx", "50%");
+            card.style.setProperty("--my", "50%");
+          });
         });
       }
 
-      // Scroll fade-in
+      // Scroll reveals (directional + zoom)
       const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
     { threshold: 0.1 }
       );
-      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+      document.querySelectorAll(".fade-in, .fade-up, .fade-left, .fade-right, .fade-zoom").forEach(el => observer.observe(el));
 
       // ── Preloader → hero entrance ─────────────────────────────────────
       const preloader = document.getElementById("preloader");
@@ -1783,11 +1856,14 @@
       window.addEventListener("load", () => setTimeout(hidePreloader, 350));
       setTimeout(hidePreloader, 1600);
 
-      // ── Scroll progress bar ───────────────────────────────────────────
+      // ── Scroll progress bar + back-to-top ring ───────────────────────
       const progressBar = document.getElementById("scroll-progress");
+      const backTop = document.getElementById("back-top");
       function updateProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
-        progressBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+        progressBar.style.width = pct + "%";
+        backTop.style.setProperty("--p", pct + "%");
       }
       window.addEventListener("scroll", updateProgress, { passive: true });
       updateProgress();
@@ -1812,7 +1888,6 @@
       });
 
       // ── Back to top ───────────────────────────────────────────────────
-      const backTop = document.getElementById("back-top");
       window.addEventListener("scroll", () => {
         backTop.classList.toggle("show", window.scrollY > 700);
       }, { passive: true });
@@ -2069,6 +2144,53 @@
             sysPanel.appendChild(ring);
             setTimeout(() => ring.remove(), 800);
           });
+        }
+      })();
+
+      // ── Hero 3D parallax (mouse + scroll) ──────────────────────────────
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const P = [
+          { el: document.querySelector(".hero-orbit.o1"), mx: 26, my: 18, syf: 0.16 },
+          { el: document.querySelector(".hero-orbit.o2"), mx: 16, my: 12, syf: 0.10 },
+          { el: document.querySelector(".hero-sys"), mx: 10, my: 8, syf: 0.06 },
+          { el: document.querySelector(".hero-content"), mx: -6, my: -4, syf: 0.22 }
+        ].filter(p => p.el);
+        let px = 0, py = 0, tx = 0, ty = 0;
+        const hasMouse = window.matchMedia("(pointer: fine)").matches;
+        if (hasMouse) window.addEventListener("mousemove", e => {
+          tx = (e.clientX / window.innerWidth - 0.5) * 2;
+          ty = (e.clientY / window.innerHeight - 0.5) * 2;
+        }, { passive: true });
+        (function parallax() {
+          px += (tx - px) * 0.08;
+          py += (ty - py) * 0.08;
+          const sy = window.scrollY;
+          for (const p of P) {
+            p.el.style.translate =
+              (px * p.mx).toFixed(1) + "px " +
+              ((hasMouse ? py * p.my : 0) + sy * p.syf).toFixed(1) + "px";
+          }
+          requestAnimationFrame(parallax);
+        })();
+      }
+
+      // ── Floating data-particles in hero ────────────────────────────────
+      (function heroParticles() {
+        const hero = document.getElementById("hero");
+        if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const COLORS = ["230,169,63", "127,176,105", "124,110,255"];
+        for (let i = 0; i < 14; i++) {
+          const d = document.createElement("span");
+          d.className = "pd";
+          const s = (2 + Math.random() * 2).toFixed(1);
+          d.style.width = d.style.height = s + "px";
+          d.style.left = (4 + Math.random() * 92).toFixed(1) + "%";
+          d.style.top = (6 + Math.random() * 88).toFixed(1) + "%";
+          d.style.setProperty("--pd-c", "rgba(" + COLORS[i % 3] + "," + (0.35 + Math.random() * 0.45).toFixed(2) + ")");
+          d.style.setProperty("--pd-dur", (9 + Math.random() * 10).toFixed(1) + "s");
+          d.style.setProperty("--pd-x", (20 + Math.random() * 80).toFixed(0) + "px");
+          d.style.animationDelay = (-Math.random() * 18).toFixed(2) + "s";
+          hero.appendChild(d);
         }
       })();
 </script>

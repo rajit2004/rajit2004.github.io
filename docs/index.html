@@ -1835,9 +1835,15 @@
       const set = n => { node.textContent = n === 1 ? "✓ 1 PR merged" : "✓ " + n + " PRs merged"; };
         const c = cached(key);
         if (c != null) set(c);
-        fetchJson(GITHUB + "/search/issues?q=" + encodeURIComponent("author:rajit2004 type:pr is:merged repo:" + p.repo) + "&per_page=1")
-      .then(d => { const v = Number(d.total_count) || 0; setCache(key, v); set(v); })
-      .catch(() => { if (c == null) node.textContent = "✓ merged PRs"; });
+        const url = GITHUB + "/search/issues?q=" + encodeURIComponent("author:rajit2004 type:pr is:merged repo:" + p.repo) + "&per_page=1";
+        (function attempt(round) {
+          fetchJson(url)
+        .then(d => { const v = Number(d.total_count) || 0; setCache(key, v); set(v); })
+        .catch(() => {
+          if (round > 0) setTimeout(() => attempt(round - 1), 700);
+          else if (c == null) node.textContent = "✓ merged PRs";
+        });
+        })(2);
       });
 
       // Mouse spotlight

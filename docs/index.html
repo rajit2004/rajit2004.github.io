@@ -83,10 +83,7 @@
       background: radial-gradient(circle, rgba(124,110,255,0.09) 0%, transparent 55%);
     }
 
-    /* Custom cursor */
-    @media (pointer: fine) {
-      body, a, button { cursor: none; }
-    }
+    /* Custom cursor (visual enhancement — native cursor stays visible) */
     @media (pointer: coarse) {
       .cursor-dot, .cursor-ring { display: none; }
     }
@@ -649,37 +646,6 @@
         box-shadow: 0 0 14px rgba(230,169,63,0.65);
       }
 
-      /* Preloader */
-      #preloader {
-        position: fixed; inset: 0; z-index: 300;
-        display: flex; flex-direction: column; gap: 18px;
-        align-items: center; justify-content: center;
-        background: var(--bg);
-        transition: opacity 0.55s ease, visibility 0.55s ease;
-      }
-      #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-      .preloader-logo {
-        font-family: var(--display);
-        font-size: clamp(2rem, 6vw, 3rem);
-        font-weight: 700; color: var(--text);
-        letter-spacing: -0.02em;
-      }
-      .preloader-logo span { color: var(--accent); }
-      .preloader-bar {
-        width: 180px; height: 2px; border-radius: 2px;
-        background: rgba(255,255,255,0.08); overflow: hidden;
-      }
-      .preloader-bar i {
-        display: block; height: 100%; width: 0%;
-        background: linear-gradient(90deg, var(--accent), var(--accent-g));
-        animation: loadbar 0.9s ease forwards;
-      }
-      @keyframes loadbar { to { width: 100%; } }
-      .preloader-tag {
-        font-family: var(--mono); font-size: 0.7rem;
-        color: var(--muted); letter-spacing: 0.28em; text-transform: uppercase;
-      }
-
       /* Hero grid + orbit rings */
       #hero::before {
         content: '';
@@ -702,7 +668,7 @@
       .hero-orbit.o2 { width: 300px; height: 300px; right: 30px; top: 30%; border-color: rgba(124,110,255,0.14); animation: spin-slow 20s linear infinite reverse; }
       @keyframes spin-slow { to { transform: rotate(360deg); } }
 
-      /* Hero entrance (gated on preloader) */
+      /* Hero entrance */
       .hero-anim {
         opacity: 0; transform: translateY(24px);
         animation: hero-in 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
@@ -1212,11 +1178,6 @@
     </head>
 
   <body>
-    <div id="preloader" aria-hidden="true">
-      <div class="preloader-logo">rajit2004<span>~/$</span></div>
-      <div class="preloader-bar"><i></i></div>
-      <div class="preloader-tag">loading</div>
-    </div>
     <div id="scroll-progress" aria-hidden="true"></div>
     <div class="noise" aria-hidden="true"></div>
     <div class="cursor-light" id="cursor-light"></div>
@@ -1655,6 +1616,8 @@
       </footer>
 
 <script>
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
       // Role typewriter
       const roles = [
       "Java Developer",
@@ -1913,14 +1876,8 @@
       );
       document.querySelectorAll(".fade-in, .fade-up, .fade-left, .fade-right, .fade-zoom").forEach(el => observer.observe(el));
 
-      // ── Preloader → hero entrance ─────────────────────────────────────
-      const preloader = document.getElementById("preloader");
-      function hidePreloader() {
-        preloader.classList.add("done");
-        document.getElementById("hero").classList.add("play");
-      }
-      window.addEventListener("load", () => setTimeout(hidePreloader, 350));
-      setTimeout(hidePreloader, 1600);
+      // ── Hero entrance ────────────────────────────────────────────────
+      document.getElementById("hero").classList.add("play");
 
       // ── Scroll progress bar + back-to-top ring ───────────────────────
       const progressBar = document.getElementById("scroll-progress");
@@ -1962,17 +1919,23 @@
       // ── Mobile nav toggle ─────────────────────────────────────────────
       const navToggle = document.getElementById("nav-toggle");
       const navLinksEl = document.getElementById("nav-links");
+      function closeNav() {
+        navLinksEl.classList.remove("open");
+        navToggle.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
       navToggle.addEventListener("click", () => {
         const open = navLinksEl.classList.toggle("open");
         navToggle.classList.toggle("open", open);
         navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) navLinksEl.querySelector("a")?.focus();
       });
-      navLinksEl.querySelectorAll("a").forEach(a => {
-        a.addEventListener("click", () => {
-          navLinksEl.classList.remove("open");
-          navToggle.classList.remove("open");
-          navToggle.setAttribute("aria-expanded", "false");
-        });
+      navLinksEl.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && navLinksEl.classList.contains("open")) closeNav();
+      });
+      document.addEventListener("click", e => {
+        if (navLinksEl.classList.contains("open") && !navLinksEl.contains(e.target) && e.target !== navToggle) closeNav();
       });
 
       // ── Live repo stars on project cards ─────────────────────────────
@@ -2214,7 +2177,7 @@
       })();
 
       // ── Hero 3D parallax (mouse + scroll) ──────────────────────────────
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (!prefersReducedMotion) {
         const P = [
           { el: document.querySelector(".hero-orbit.o1"), mx: 26, my: 18, syf: 0.16 },
           { el: document.querySelector(".hero-orbit.o2"), mx: 16, my: 12, syf: 0.10 },
@@ -2243,7 +2206,7 @@
       // ── Floating data-particles in hero ────────────────────────────────
       (function heroParticles() {
         const hero = document.getElementById("hero");
-        if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (!hero || prefersReducedMotion) return;
         const COLORS = ["230,169,63", "127,176,105", "124,110,255"];
         for (let i = 0; i < 14; i++) {
           const d = document.createElement("span");

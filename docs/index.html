@@ -1879,17 +1879,25 @@
       // ── Hero entrance ────────────────────────────────────────────────
       document.getElementById("hero").classList.add("play");
 
-      // ── Scroll progress bar + back-to-top ring ───────────────────────
+      // ── Scroll progress + back-to-top (single rAF-gated handler) ─────
       const progressBar = document.getElementById("scroll-progress");
       const backTop = document.getElementById("back-top");
-      function updateProgress() {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-        progressBar.style.width = pct + "%";
-        backTop.style.setProperty("--p", pct + "%");
+      let scrollTicking = false;
+      function onScroll() {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+          progressBar.style.width = pct + "%";
+          backTop.style.setProperty("--p", pct + "%");
+          backTop.classList.toggle("show", window.scrollY > 700);
+          scrollTicking = false;
+        });
       }
-      window.addEventListener("scroll", updateProgress, { passive: true });
-      updateProgress();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+      backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
       // ── Scrollspy nav ─────────────────────────────────────────────────
       const spyLinks = {};
@@ -1904,17 +1912,11 @@
           const link = spyLinks[e.target.id];
           if (link) link.classList.add("active");
         });
-      }, { rootMargin: "-45% 0px -50% 0px" });
-      ["projects", "skills", "opensource", "achievements", "journey", "contact"].forEach(id => {
+      });
+      ["projects", "skills", "journey", "achievements", "contact"].forEach(id => {
         const s = document.getElementById(id);
         if (s) spyObserver.observe(s);
       });
-
-      // ── Back to top ───────────────────────────────────────────────────
-      window.addEventListener("scroll", () => {
-        backTop.classList.toggle("show", window.scrollY > 700);
-      }, { passive: true });
-      backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
       // ── Mobile nav toggle ─────────────────────────────────────────────
       const navToggle = document.getElementById("nav-toggle");
@@ -2191,6 +2193,8 @@
           ty = (e.clientY / window.innerHeight - 0.5) * 2;
         }, { passive: true });
         (function parallax() {
+          const heroEl = document.getElementById("hero");
+          if (!heroEl || heroEl.getBoundingClientRect().bottom < 0) return;
           px += (tx - px) * 0.08;
           py += (ty - py) * 0.08;
           const sy = window.scrollY;

@@ -1331,24 +1331,29 @@
       <!-- Stats bar -->
       <div id="stats">
         <div class="stat-item">
-          <span class="stat-num" id="stat-problems">…</span>
-          <span class="stat-label">Problems Solved</span>
+          <span class="stat-num">239+</span>
+          <span class="stat-label">DSA Problems Solved</span>
+          <span class="stat-note">Updated Aug 2026</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num" id="stat-prs">…</span>
+          <span class="stat-num">48+</span>
           <span class="stat-label">PRs Merged</span>
+          <span class="stat-note">Updated Aug 2026</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num" id="stat-stars">…</span>
+          <span class="stat-num">7+</span>
           <span class="stat-label">GitHub Stars</span>
+          <span class="stat-note">Updated Aug 2026</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num" id="stat-followers">…</span>
+          <span class="stat-num">18+</span>
           <span class="stat-label">Followers</span>
+          <span class="stat-note">Updated Aug 2026</span>
         </div>
         <div class="stat-item">
-          <span class="stat-num" id="stat-repos">…</span>
+          <span class="stat-num">21+</span>
           <span class="stat-label">Public Repos</span>
+          <span class="stat-note">Updated Aug 2026</span>
         </div>
       </div>
 
@@ -1547,17 +1552,17 @@
         <p class="section-eyebrow"><span class="se-prompt">$</span> cat ./receipts</p>
         <h2 class="section-title fade-in"><span class="section-no">04 //</span><span class="title-text">Achievements</span></h2>
         <div class="ach-grid">
-          <div class="ach-card tilt fade-up">
+          <a href="https://github.com/deepseek-ai/awesome-deepseek-integration" target="_blank" rel="noopener noreferrer" class="ach-card tilt fade-up">
             <div class="ach-icon">🌟</div>
             <p class="ach-label">Recognition</p>
             <span class="ach-num">DeepSeek featured</span>
-            <p class="ach-desc">DeepSeekWidget was showcased in DeepSeek's official community digest.</p>
-          </div>
+            <p class="ach-desc">DeepSeekWidget was showcased in DeepSeek's official community digest. <span style="color:var(--accent-g)">↗</span></p>
+          </a>
           <div class="ach-card tilt fade-up">
             <div class="ach-icon">⬇️</div>
             <p class="ach-label">Reach</p>
             <span class="ach-num">1,490+ clones</span>
-            <p class="ach-desc">DeepSeekWidget has been cloned more than 1,490 times since launch.</p>
+            <p class="ach-desc">Repository clones as of Aug 2026. Includes forks and direct clones.</p>
           </div>
           <div class="ach-card tilt fade-up">
             <div class="ach-icon">🏆</div>
@@ -1569,7 +1574,7 @@
             <div class="ach-icon">⚔️</div>
             <p class="ach-label">Daily grind</p>
             <span class="ach-num">DSA, every day</span>
-            <p class="ach-desc">Solving problems in Java almost daily, with progress tracked automatically.</p>
+            <p class="ach-desc">239+ problems solved in Java, with progress tracked automatically.</p>
           </div>
         </div>
       </section>
@@ -1580,9 +1585,21 @@
         <p class="section-eyebrow"><span class="se-prompt">$</span> git log --career</p>
         <h2 class="section-title fade-in"><span class="section-no">05 //</span><span class="title-text">The path so far</span></h2>
         <div class="timeline-grid">
-          <article class="timeline-card fade-up"><span class="timeline-no">01</span><h3>Started with Java</h3><p>Built the foundation through daily problem solving and small experiments.</p></article>
-          <article class="timeline-card fade-up"><span class="timeline-no">02</span><h3>Started shipping apps</h3><p>Moved from exercises to Android, Flutter, backend, and data projects.</p></article>
-          <article class="timeline-card fade-up"><span class="timeline-no">03</span><h3>Started contributing</h3><p>Worked on real repositories and learned through merged pull requests.</p></article>
+          <article class="timeline-card fade-up">
+            <span class="timeline-no">2024</span>
+            <h3>Started with Java &amp; DSA</h3>
+            <p>Began daily problem solving and built a solid foundation in data structures and algorithms.</p>
+          </article>
+          <article class="timeline-card fade-up">
+            <span class="timeline-no">2025</span>
+            <h3>Shipped real apps</h3>
+            <p>Built DeepSeekWidget (1,490+ clones), InnerCircle, and data tools with Flutter, Spring Boot, and Streamlit.</p>
+          </article>
+          <article class="timeline-card fade-up">
+            <span class="timeline-no">2026</span>
+            <h3>Open source contributor</h3>
+            <p>Merged PRs through ECSoC26 and SSoC26. DeepSeekWidget featured in official integrations list.</p>
+          </article>
         </div>
       </section>
 
@@ -1674,14 +1691,6 @@
       const GITHUB = "https://api.github.com";
       const LC_URL = "https://alfa-leetcode-api.onrender.com/rajit2004/solved";
 
-      const STATS = [
-    { el: "stat-problems", url: LC_URL, pick: d => d.solvedProblem, def: 234, cache: "lc-solved" },
-    { el: "stat-prs", url: GITHUB + "/search/issues?q=author:rajit2004+type:pr+is:merged&per_page=1", pick: d => d.total_count, def: 41, cache: "gh-prs" },
-    { el: "stat-stars", url: GITHUB + "/users/rajit2004/repos?per_page=100&sort=updated", pick: d => d.reduce((s, r) => s + (r.stargazers_count || 0), 0), def: 7, cache: "gh-stars" },
-    { el: "stat-followers", url: GITHUB + "/users/rajit2004", pick: d => d.followers, def: 16, cache: "gh-followers" },
-    { el: "stat-repos", url: GITHUB + "/users/rajit2004", pick: d => d.public_repos, def: 21, cache: "gh-repos" },
-      ];
-
       const CACHE_TTL = 30 * 60 * 1000;
 
       function cached(key) {
@@ -1718,23 +1727,6 @@
           if (p < 1) requestAnimationFrame(step);
         })(performance.now());
       }
-
-      async function refreshStats() {
-        for (const s of STATS) {
-          const node = document.getElementById(s.el);
-          const c = cached(s.cache);
-          if (c != null) animateNumber(node, c);
-          try {
-            const data = await fetchJson(s.url);
-            const v = Number(s.pick(data)) || 0;
-            setCache(s.cache, v);
-            animateNumber(node, v);
-          } catch {
-            if (c == null) node.textContent = s.def;
-          }
-        }
-      }
-      refreshStats();
 
       // Interactive skill badges
       const skillInfo = {
